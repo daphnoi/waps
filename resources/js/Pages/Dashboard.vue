@@ -31,17 +31,6 @@ import { usePage } from '@inertiajs/vue3';
                         </h5>
                     </div>
                 </div>
-                <div class="absolute fixed top-[15vmin] right-9">
-                    <button type="button "
-                        class=" flex flex-wrap text-white bg-[#f39202] hover:bg-gray-950  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
-                        Create New Project
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </button>
-                </div>
                 <div
                     class="md:flex bg-gray-800 rounded-lg shadow p-3 mt-5 gap-1 h-[75vmin]">
                     <div class="w-[100%] mb-2 lg:mb-0 lg:w-[90%]  overflow-auto">
@@ -197,11 +186,11 @@ import { usePage } from '@inertiajs/vue3';
                             class="h-full grid grid-cols-8 grid-rows-8 gap-2 gap-y-2 grid grid pt-[0.5] px-1 pb-2">
                             <div
                                 class="bg-white text-[#3ca9e0] text-md font-bold col-span-4 row-span-3 whitespace-normal shadow-xl rounded px-2 pt-2 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
-                                TOTAL TEAMS
+                                PENDING PROJECTS
                                 <diV class="mt-[1vmin]">
                                     <p
                                         class="font-sans text-6xl text-[#f39202] col-span-4 whitespace-normal px-2 text-center px-2 overflow-hidden">
-                                        <img class="w-15 h-10" src="https://cdn0.iconfinder.com/data/icons/project-management-1-6/65/19-1024.png">
+                                        <img class="w-15 h-10" src="https://www.svgrepo.com/show/530409/time.svg">
                                         19
                                     </p>
                                 </diV>
@@ -212,7 +201,7 @@ import { usePage } from '@inertiajs/vue3';
                                 <diV class="mt-[1vmin]">
                                     <p
                                         class="font-sans text-6xl text-[#f39202] col-span-4 whitespace-normal px-2 text-center px-2 overflow-hidden ">
-                                        <img class="w-15 h-10 rounded-full" src="https://i.pinimg.com/564x/66/3d/3c/663d3c09429063dd1c69bd2336c076db.jpg">
+                                        <img class="w-15 h-10 rounded-full" src="https://www.svgrepo.com/show/288285/files-document.svg">
                                         20
                                     </p>
                                 </diV>
@@ -223,7 +212,7 @@ import { usePage } from '@inertiajs/vue3';
                                 <diV class="mt-[1vmin]">
                                     <p
                                         class="font-sans text-6xl text-[#f39202] text-col-span-4 whitespace-normal px-2 text-center px-2 overflow-hidden ">
-                                        <img class="w-15 h-10" src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png">
+                                        <img class="w-15 h-10" src="https://www.svgrepo.com/show/286216/users-user.svg">
                                         10
                                     </p>
                                 </diV>
@@ -234,7 +223,7 @@ import { usePage } from '@inertiajs/vue3';
                                 <diV class="mt-[1vmin]">
                                     <p
                                         class="font-sans text-6xl text-[#f39202] col-span-4 whitespace-normal px-2 text-center px-2 overflow-hidden">
-                                        <img class="w-15 h-10" src="https://cdn-icons-png.flaticon.com/512/4727/4727408.png">
+                                        <img class="w-15 h-10" src="https://www.svgrepo.com/show/216547/idea-light-bulb.svg">
                                         18
                                     </p>
                                 </diV>
