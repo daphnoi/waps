@@ -27,7 +27,7 @@ defineProps({
                 src="./../../Components/img/SSRlogo.png" />
         </div>
         <div class="absolute ml-[100vh]">
-            <div class=" mt-[7vh] ml-20 sm:px-6 lg:px-8  max-w-7xl mx-auto   ">
+            <div class=" mt-[7vh] ml-10 sm:px-6 lg:px-8     ">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <UpdateProfileInformationForm :user="$page.props.auth.user" />
 

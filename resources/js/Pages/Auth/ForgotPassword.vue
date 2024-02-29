@@ -44,7 +44,7 @@ const submit = () => {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="mt-6 block w-full shadow-md ml-5 text-xl"
+                    class="mt-6 block w-full shadow-md text-xl"
                     required
                     autofocus
                     autocomplete="username"
