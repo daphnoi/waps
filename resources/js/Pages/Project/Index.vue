@@ -77,7 +77,7 @@ const openDeleteModal = (name, date) => {
         </template>
         <sidebar />
         <div class=" h-[100vmin]">
-            <div class=" mx-auto py-5 sm:px-10 lg:px10 text-2xl font-semibold ml-10">
+            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-4xl font-semibold ml-10 uppercase font-bold text-blue-900  ">
                 Projects
             </div>
             <div class="absolute fixed top-[9vmin] right-14">

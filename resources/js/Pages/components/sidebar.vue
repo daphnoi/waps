@@ -46,7 +46,7 @@ const draw = ref(true);
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-[#ffffff] rounded-lg ">
+                    <a href="https://waps.com/user/profile" class="flex items-center p-2 text-[#ffffff] rounded-lg ">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 "
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 18 16">
                             <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
