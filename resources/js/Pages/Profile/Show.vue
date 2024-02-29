@@ -19,7 +19,7 @@ defineProps({
         <template #header>
             <h2 class="fixed w-full  static flex items-center justify-between px-10 py-4  z-10  bg-fixed">
                 <p class="text-6xl text-blue-800 font-bold bg-gray-200 rounded-full shadow-lg">Profile</p>
-                <a href="https://waps_s4.com/dashboard" class="text-3xl hover:text-orange-400 "> ←Dashboard </a>
+                <a href="https://waps.com/dashboard" class="text-3xl hover:text-orange-400 "> ←Dashboard </a>
 
             </h2>
         </template>
