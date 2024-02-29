@@ -87,7 +87,7 @@ const clearPhotoFileInput = () => {
 
         <template #form>
             <!-- Profile Photo -->
-            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
+            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4 ">
                 <!-- Profile Photo File Input -->
                 <input
                     id="photo"
@@ -129,7 +129,7 @@ const clearPhotoFileInput = () => {
             </div>
 
             <!-- Name -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4 ml-4">
                 <InputLabel for="name" value="Name" />
                 <TextInput
                     id="name"
@@ -139,11 +139,11 @@ const clearPhotoFileInput = () => {
                     required
                     autocomplete="name"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.name" class="mt-2 ml-5" />
             </div>
 
             <!-- Email -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4 ml-4">
                 <InputLabel for="email" value="Email" />
                 <TextInput
                     id="email"
@@ -153,7 +153,7 @@ const clearPhotoFileInput = () => {
                     required
                     autocomplete="username"
                 />
-                <InputError :message="form.errors.email" class="mt-2" />
+                <InputError :message="form.errors.email" class="mt-2 ml-5" />
 
                 <div v-if="$page.props.jetstream.hasEmailVerification && user.email_verified_at === null">
                     <p class="text-sm mt-2">
@@ -178,11 +178,11 @@ const clearPhotoFileInput = () => {
         </template>
 
         <template #actions>
-            <ActionMessage :on="form.recentlySuccessful" class="me-3">
+            <ActionMessage :on="form.recentlySuccessful" class="me-3 ">
                 Saved.
             </ActionMessage>
 
-            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <PrimaryButton class="mt-5 mr-20 mb-5 " :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Save
             </PrimaryButton>
         </template>

@@ -13,16 +13,21 @@ defineProps({
 });
 </script>
 
-<template>
+<template >
     <AppLayout title="Profile">
+
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Profile
+            <h2 class="fixed w-full  static flex items-center justify-between px-10 py-4  z-10  bg-fixed">
+                <p class="text-6xl text-blue-800 font-bold bg-gray-200 rounded-full shadow-lg">Profile</p>
+                <a href="https://waps_s4.com/dashboard" class="text-3xl hover:text-orange-400 "> ←Dashboard </a>
+
             </h2>
         </template>
-
-        <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div><img class="fixed w-full grayscale  h-[100vh] bg-fixed"
+                src="./../../Components/img/SSRlogo.png" />
+        </div>
+        <div class="absolute ml-[100vh]">
+            <div class=" mt-[7vh] ml-20 sm:px-6 lg:px-8  max-w-7xl mx-auto   ">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <UpdateProfileInformationForm :user="$page.props.auth.user" />
 
@@ -32,25 +37,19 @@ defineProps({
                 <div v-if="$page.props.jetstream.canUpdatePassword">
                     <UpdatePasswordForm class="mt-10 sm:mt-0" />
 
-                    <SectionBorder />
+
                 </div>
 
-                <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
-                    <TwoFactorAuthenticationForm
-                        :requires-confirmation="confirmsTwoFactorAuthentication"
-                        class="mt-10 sm:mt-0"
-                    />
+            </div>
+        </div>
+        <div class="group ">
+            <img class="absolute mt-[8vh] ml-60 w-[70vh]  float-left transition duration-300 transform group-hover:-rotate-180"
+                src="./../../Components/img/Vector.png" />
+            <div class="absolute z-10 hidden group-hover:block  w-[100h]   ">
+                <img class="w-[60vh] mt-[30vh] ml-[25vh] float-center" src="./../../Components/img/logoS4.png">
+                <p class="text-5xl font-extrabold ml-[20vh] ">Word Association Production Software</p>
+               
 
-                    <SectionBorder />
-                </div>
-
-                <LogoutOtherBrowserSessionsForm :sessions="sessions" class="mt-10 sm:mt-0" />
-
-                <template v-if="$page.props.jetstream.hasAccountDeletionFeatures">
-                    <SectionBorder />
-
-                    <DeleteUserForm class="mt-10 sm:mt-0" />
-                </template>
             </div>
         </div>
     </AppLayout>
