@@ -48,7 +48,14 @@ defineProps({
             <div class="absolute z-10 hidden group-hover:block  w-[100h]   ">
                 <img class="w-[60vh] mt-[30vh] ml-[25vh] float-center" src="./../../Components/img/logoS4.png">
                 <p class="text-5xl font-extrabold ml-[20vh] ">Word Association Production Software</p>
-               
+                <!--<img class="w-[30vh] mt-40 ml-[25vh] float-center" src="./../../Components/img/logoS4.png">
+                <img class="mt-40 ml-[25vh] transition ease-in delay-30 hover:scale-50 duration-150   duration-300" src="./../../Components/img/tableticon.png" />
+                <img class="mt-[7vh] ml-[20vh] transition ease-in delay-30 hover:scale-50 duration-150    duration-300" src="./../../Components/img/great.png" />
+                <img class="-mt-[10vh] ml-[70vh] transition ease-in delay-30 hover:scale-50 duration-150     duration-300" src="./../../Components/img/webanalytics.png" />
+                <img class="mt-[-2vh] ml-[75vh] transition ease-in delay-30 hover:scale-50 duration-150    duration-300" src="./../../Components/img/celendar.png" />
+                <img class="mt-[-10vh] ml-[49vh] transition ease-in delay-30 hover:scale-50 duration-150   duration-300" src="./../../Components/img/join us.png" />
+               -->
+
 
             </div>
         </div>
