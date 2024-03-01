@@ -34,8 +34,8 @@ import { usePage } from '@inertiajs/vue3';
                 <div
                     class="md:flex bg-gray-800 rounded-lg shadow p-3 mt-5 gap-1 h-[75vmin]">
                     <div class="w-[100%] mb-2 lg:mb-0 lg:w-[90%]  overflow-auto">
-                        <table class=" w-full border rounded-lg  h-full text-left  text-gray-500  sm:rounded-lg h">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50    ">
+                        <table class=" w-full border rounded-lg  h-full text-left  text-gray-500  sm:rounded-lg ">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                                 <tr>
                                     <th scope="col" class="p-5  py-3 ">
                                     </th>
@@ -228,7 +228,7 @@ import { usePage } from '@inertiajs/vue3';
                                     </p>
                                 </diV>
                             </div>
-                            <div class="row-span-4 col-span-8 text-white text-xl font-bold pt-3">
+                            <div class="row-span-4 col-span-8 text-white text-xl font-bold pt-3 ">
                                 PROJECT PROGRESS
                                 <pie-chart :data="[['To do', 44], ['In progres', 23], ['Done',9]] " :colors="['red', 'orange', 'blue','violet', 'green', 'yellow', 'indigo']" :donut="true"></pie-chart>
                             </div>

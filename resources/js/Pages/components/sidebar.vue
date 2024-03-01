@@ -18,8 +18,8 @@ const draw = ref(true);
                         stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </div>
-            <button class="absolute right-2 pt-2 top-2 hover:bg-[#e94f1d] rounded-lg pl-2 pr-2 text-[#ffffff] " @click="draw = !draw"> x </button>
-            <ul class="space-y-2 font-1xl">
+            <button class="absolute right-2 pt-1 pl-2 pr-2 px-2 pb-1  top-2 hover:bg-[#e94f1d] rounded-lg text-[#ffffff] border-1 " @click="draw = !draw"> x </button>
+            <ul class="space-y-2 text-2xl mt-0">
                 <li>
                     <a :href="route('dashboard')" class="flex items-center p-2 text-[#ffffff] rounded-lg  group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 " aria-hidden="true"

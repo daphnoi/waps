@@ -58,16 +58,36 @@ const _deleteProject = (data) => {
     alert(data)
 }
 
+
+
+
 const openDeleteModal = (name, date) => {
     project_Name.value.name = name
     project_Name.value.date = date
     deleteModal.value = true
     const now = new Date();
     const day = now.getDay(); // returns a number representing the day of the week, starting with 0 for Sunday
-    const hours = now.getHours()  % 12 || 12;
+    const hours = now.getHours() % 12 || 12;
     const minutes = now.getMinutes();
     console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
 }
+
+
+const openAddModal = (name, date) => {
+    project_Name.value.name = name
+    project_Name.value.date = date
+    deleteModal.value = true
+    const now = new Date();
+    const day = now.getDay(); // returns a number representing the day of the week, starting with 0 for Sunday
+    const hours = now.getHours() % 12 || 12;
+    const minutes = now.getMinutes();
+    console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
+}
+
+
+    
+
+
 
 </script>
 
@@ -100,18 +120,21 @@ const openDeleteModal = (name, date) => {
                         <p
                             class="text-xl font-semibold text-orange-300 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
                             {{ project.projectname }}</p>
-                        <p class="text-white text-xs ">{{ project.date }} </p>
+                        <p class="text-white text-md ">{{ project.date }} </p>
                         <p class="text-white text-xs">21 hours ago</p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
-                        <div class="text-xl font-semibold text-[#ffffff] overflow-hidden text-center ">Sub Projects</div>
+                        <div class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-left ">Sub Projects</div>
                         <p
-                            class="text-white text-medium transition ease-in-out delay-150 hover:underline ease-in-out delay-150 hover:scale-[100%] duration-200 ">
+                            class="text-white text-md   transition ease-in-out delay-150 border-4 border-gray-600 hover:border-gray-300 ease-in-out delay-150 hover:scale-[100%] duration-200 o">
                             WAPS</p>
-                        <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg">
-                            <button type="button"
-                                class="flex flex-wrap w-[max-content] text-white bg-[#3ca9e0] hover:bg-[#1e71b8] font-semibold text-sm px-5 py-2.5 text-center">
-                                Add Project
+                        <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
+                            <button type="button" @click='openAddModal(project.name,project.date)'
+                                class=" flex flex-wrap w-[max-content] text-white bg-[#3ca9e0] hover:bg-[#1e71b8] font-semibold text-sm px-5 py-2.5 text-center">
+                                Add Project 
                             </button>
+
+                           
+
                             <div class="flex flex-wrap justify-center gap-2 mt-4 text-[#ffffff]">
                                 <button aria-label="Share this post" type="button"
                                     @click="openDeleteModal(project.name, project.date)"
@@ -141,14 +164,16 @@ const openDeleteModal = (name, date) => {
             </div>
             <div class="px-4 w-100 py-3 flex items-center justify-center border-gray-200 sm:px-6" data-v-e9ac0302="">
                 <div class="mt-6 -mb-1 flex flex-wrap" data-v-e9ac0302="">
-                    <div class="mr-1 mb-1 px-2 py-1 text-sm bg-white border rounded text-gray-400">
+                    <div
+                        class="mr-1 mb-1 px-2 py-1 text-md bg-white border rounded text-gray-400 hover:bg-blue-900 hover:text-white consor-pointer">
                         <span>« Previous</span>
                     </div>
-                    <a class="mr-1 mb-1 px-2 bg-white py-1 text-sm shadow-sm border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500 bg-white"
-                        href="https://waps.splitsecondsurveys.co.uk/projects?page=1">
+                    <a
+                        class="mr-1 mb-1 px-2 b py-1 text-md shadow-sm border  hover:bg-blue-900 hover:text-white focus:border-gray-500 bg-white consor-pointer">
                         <span>1</span>
                     </a>
-                    <div class="mr-1 mb-1 px-2 py-1 text-sm bg-white border rounded text-gray-400 ml-auto">
+                    <div
+                        class="mr-1 mb-1 px-2 py-1 text-md bg-white border rounded text-gray-400 ml-auto hover:bg-blue-900 hover:text-white consor-pointer">
                         <span>Next »</span>
                     </div>
                 </div>
@@ -171,7 +196,8 @@ const openDeleteModal = (name, date) => {
                     </DangerButton>
                 </template>
             </ConfirmationModal>
+
+
         </div>
-    </AppLayout>
-</template>
+</AppLayout></template>
 
