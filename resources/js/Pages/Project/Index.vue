@@ -2,64 +2,57 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import sidebar from './../components/sidebar.vue';
 import { onMounted, ref } from 'vue';
-import { usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import DialogModal from '@/Components/DialogModal.vue';
+import Input from '@/Components/Input.vue';
 
-const isVisible = ref(false);
 
-const sampleData = ref([
-    {
-        img: "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp",
-        name: "Daphne 1",
-        projectname: "Waps-Project-0-9444",
-        date: `February 27th 2024, 5:17:54 pm`
-    },
-    {
-        img: "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp",
-        name: "Daphne 2",
-        projectname: "Now-Project-0-1454",
-        date: `February 27th 2024, 6:17:54 pm`
-    },
-    {
-        img: "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp",
-        name: "Daphne 3",
-        projectname: "Cloud-Project-0-9454",
-        date: `February 27th 2024, 5:17:54 pm`
-    },
-    {
-        img: "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp",
-        name: "Daphne 4",
-        projectname: "Wow-Project-8-9454",
-        date: `February 27th 2024, 5:17:54 pm`
-    },
-    {
-        img: "https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp",
-        name: "Daphne 5",
-        projectname: "Root-Project-8-6969",
-        date: `February 27th 2024, 5:17:54 pm`
-    },
+const props = defineProps([
+    "Projects"
 ])
-
+const form = useForm({
+    name:"",
+    details:"",
+})
 const deleteModal = ref(false)
 const project_Name = ref({
     'name': '',
     'date': ''
 })
 
-// const urname = ref('user')
+const addprojectmodal = ref(false)
 
-// onMounted(() => {
-//     urname.value = localStorage.getItem("lastname")
-// })
+const additemModal = ref(false)
 
+const additem = (data) => {
+    additemModal.value =!additemModal.value
+}
+
+const addproject = (data) => {
+    addprojectmodal.value = !addprojectmodal.value
+}
+
+const createProject = () => {
+    form.post(route("projects.store"),{
+        onSuccess: () => { 
+            addprojectmodal.value = false 
+            form.reset 
+            
+        }, 
+        onError: () => {
+            alert("error")
+
+        }
+    })
+   
+}
 
 const _deleteProject = (data) => {
     alert(data)
 }
-
-
 
 
 const openDeleteModal = (name, date) => {
@@ -75,20 +68,6 @@ const openDeleteModal = (name, date) => {
 
 
 
-const openAddModal = (name, date) => {
-    project_Name.value.name = name
-    project_Name.value.date = date
-    isVisible.value = true
-    const now = new Date();
-    const day = now.getDay(); // returns a number representing the day of the week, starting with 0 for Sunday
-    const hours = now.getHours() % 12 || 12;
-    const minutes = now.getMinutes();
-    console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
-}
-
-
-
-
 
 </script>
 
@@ -98,11 +77,11 @@ const openAddModal = (name, date) => {
         </template>
         <sidebar />
         <div class=" h-[100vmin]">
-            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-4xl font-semibold ml-10 uppercase font-bold text-blue-900  ">
+            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-4xl font-extrabold ml-10 uppercase  text-blue-900  ">
                 Projects
             </div>
             <div class="absolute fixed top-[9vmin] right-14">
-                <button type="button "
+                <button type="button " @click="addproject()"
                     class=" flex flex-wrap text-white bg-[#f39202]  hover:bg-gray-950  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
                     Create New Project
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -113,16 +92,19 @@ const openAddModal = (name, date) => {
                 </button>
             </div>
             <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin]">
-                <div v-for="project in sampleData"
+                <div v-for="(project, index) in Projects" :key="index"
                     class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg">
                     <div class="px-2  w-[100%] inline-block">
-                        <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.img" alt="Jese image">
-                        <div class="font-semibold text-[#ffffff] overflow-hidden ">{{ project.name }} </div>
+                        <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.user.profile_photo_url" alt="Jese image">
+                        <div class="font-semibold text-[#ffffff] overflow-hidden ">{{ project.user.name }} </div>
                         <p
                             class="text-xl font-semibold text-orange-300 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
                             {{ project.projectname }}</p>
                         <p class="text-white text-md ">{{ project.date }} </p>
-                        <p class="text-white text-xs">21 hours ago</p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words">{{ project.name }} </p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden text-md break-words">{{ project.details }} </p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{ project.created_at}} </p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{ project.updated_at}} </p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
                         <div class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-left ">Sub Projects</div>
                         <p
@@ -131,90 +113,12 @@ const openAddModal = (name, date) => {
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
 
 
-                            <!-- Modal toggle -->
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            <!-- Modal add projects-->
+                            <button
                                 class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button" @click="openAddModal">
-                                Add Project
+                                type="button" @click="additem()">
+                                Add Item
                             </button>
-
-                            <!-- Main modal -->
-                            <div id="crud-modal" v-show="isVisible" tabindex="-1" aria-hidden="true"
-                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                <div class="relative p-4 w-full max-w-md max-h-full">
-                                    <!-- Modal content -->
-                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <!-- Modal header -->
-                                        <div
-                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                Create Sub Project
-                                            </h3>
-                                            <button type="button"
-                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-toggle="crud-modal">
-                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none" viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close</span>
-                                            </button>
-                                        </div>
-                                        <!-- Modal body -->
-                                        <form class="p-4 md:p-5">
-                                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                                <div class="col-span-2">
-                                                    <label for="name"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                                    <input type="text" name="name" id="name"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Type product name" required="">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="price"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                                    <input type="number" name="price" id="price"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="$2999" required="">
-                                                </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="category"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sub Project</label>
-                                                    <select id="category"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                        <option selected="">Select category</option>
-                                                        <option value="TV">TV/Monitors</option>
-                                                        <option value="PC">PC</option>
-                                                        <option value="GA">Gaming/Console</option>
-                                                        <option value="PH">Phones</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="description"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
-                                                        Description</label>
-                                                    <textarea id="description" rows="4"
-                                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Write product description here"></textarea>
-                                                </div>
-                                            </div>
-                                            <button type="submit"
-                                                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Add new product
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
 
 
                             <div class="flex flex-wrap justify-center gap-2 mt-4 text-[#ffffff]">
@@ -257,28 +161,72 @@ const openAddModal = (name, date) => {
                     <div
                         class="mr-1 mb-1 px-2 py-1 text-md bg-white border rounded text-gray-400 ml-auto hover:bg-blue-900 hover:text-white consor-pointer">
                         <span>Next »</span>
+                    </div>
                 </div>
             </div>
+            <ConfirmationModal :show="deleteModal" @close="!deleteModal">
+                <template #title>
+                    Delete API Token
+                </template>
+                <template #content>
+                    Are you sure you would like to delete {{ project_Name.name }}? <br>
+                    <small>{{ project_Name.date }}</small>
+                </template>
+
+                <template #footer>
+                    <SecondaryButton @click="deleteModal = false">
+                        Cancel
+                    </SecondaryButton>
+                    <DangerButton class="ms-3" @click="_deleteProject('John Doe')">
+                        Delete
+                    </DangerButton>
+                </template>
+            </ConfirmationModal>
+
         </div>
-        <ConfirmationModal :show="deleteModal" @close="!deleteModal">
-            <template #title>
-                Delete API Token
-            </template>
-            <template #content>
-                Are you sure you would like to delete {{ project_Name.name }}? <br>
-                <small>{{ project_Name.date }}</small>
-            </template>
 
-            <template #footer>
-                <SecondaryButton @click="deleteModal = false">
-                    Cancel
-                </SecondaryButton>
-                <DangerButton class="ms-3" @click="_deleteProject('John Doe')">
-                    Delete
-                </DangerButton>
-            </template>
-        </ConfirmationModal>
+    </AppLayout>
 
-    </div>
-</AppLayout></template>
+    <!--CreateProject-->
+    <DialogModal :show="addprojectmodal" @close="!addprojectmodal">
+        <template #title>
+            Add project
+        </template>
+        <template #content >
+         <Input v-model="form.name" type="text" label="Project Name" /> 
+             <Input v-model="form.details" type="text" label="Project Details" /> 
+        </template>
+        <template #footer>
+            <SecondaryButton @click="addprojectmodal = false">
+                Cancel
+            </SecondaryButton>
+            <DangerButton class="ms-3" @click="createProject">
+                Save 
+            </DangerButton>
+        </template>
+    </DialogModal>
+
+
+
+    <!--AddItem-->
+    <DialogModal :show="additemModal" @close="!additemModal">
+        <template #title>
+            Add Sub Project
+        </template>
+        <template #content>
+            <Input type="text" label="Project Name"/> 
+            <Input type="text" label="Details"/> 
+        </template>
+        <template #footer>
+            <SecondaryButton @click="additemModal = false">
+                Cancel
+            </SecondaryButton>
+            <DangerButton class="ms-3">
+                Save
+            </DangerButton>
+        </template>
+    </DialogModal>
+
+
+</template>
 

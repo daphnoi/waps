@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -11,9 +12,13 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
-        return Inertia::render("Project/Index");
+        $projects = Project::with("user")->get();
+        return Inertia::render("Project/Index",[
+            "Projects" => $projects
+        ]);
+
     }
 
     /**
@@ -29,7 +34,11 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projects = Project::create([
+            "name" => $request ->name,
+            "details" => $request -> details,
+            "user_id" => Auth::user() -> id,
+        ]);
     }
 
     /**

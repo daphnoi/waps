@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string("details");
+            $table->foreignid("user_id");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
