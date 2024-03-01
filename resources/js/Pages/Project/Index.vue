@@ -128,7 +128,7 @@ const openAddModal = (name, date) => {
                             class="text-white text-md   transition ease-in-out delay-150 border-4 border-gray-600 hover:border-gray-300 ease-in-out delay-150 hover:scale-[100%] duration-200 o">
                             WAPS</p>
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
-                            <button type="button" @click='openAddModal(project.name,project.date)'
+                            <button type="button" 
                                 class=" flex flex-wrap w-[max-content] text-white bg-[#3ca9e0] hover:bg-[#1e71b8] font-semibold text-sm px-5 py-2.5 text-center">
                                 Add Project 
                             </button>
