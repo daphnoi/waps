@@ -38,4 +38,6 @@ Route::middleware([
         Route::get('/', [ProjectController::class, 'index'])->name('index');
         Route::post('store/', [ProjectController::class, 'store'])->name('store');
     });
+
+    
 });
