@@ -40,11 +40,13 @@ Route::middleware([
         Route::get('/', [ProjectController::class, 'index'])->name('index');
         Route::post('store/', [ProjectController::class, 'store'])->name('store');
         Route::delete('delete/{id}', [ProjectController::class,'destroy'])->name('delete');
+        Route::put('update/{project}', [ProjectController::class,'update'])->name('update');
     });
 
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [ItemController::class, 'index'])->name('index');
         Route::post('store/', [ItemController::class, 'store'])->name('store');
+
     });
 
     

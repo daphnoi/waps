@@ -22,6 +22,12 @@ const form = useForm({
     details: "",
 })
 
+const updateform = useForm({
+    name:"",
+    details:"",
+    project:{},
+})
+
 const itemform = useForm({
     name: "",
     description: "",
@@ -30,6 +36,8 @@ const itemform = useForm({
 
 
 const deleteModal = ref(false)
+
+const updateModal = ref(false)
 
 const deleteprojid = ref(null)
 
@@ -40,11 +48,20 @@ const project_Name = ref({
 
 const addprojectmodal = ref(false)
 
+const updateprojmodal = ref(false)
+
 const additemModal = ref(false)
 
 const addproject = (data) => {
     form.reset();
     addprojectmodal.value = !addprojectmodal.value
+}
+
+const updateproject = (project) => {
+    updateform.project=project
+    updateform.name=project.name
+    updateform.details=project.details
+    updateprojmodal.value = !updateprojmodal.value
 }
 
 
@@ -102,6 +119,24 @@ const addeditem = () => {
         onSuccess: () => {
             additemModal.value = false
             itemform.reset()
+
+        },
+
+        onError: () => {
+            alert("error")
+
+        }
+    })
+}
+
+const updateitem = () => {
+    updateform.put(route("projects.update",
+    {
+        project :updateform.project
+    }),{
+    onSuccess: () => {
+        updateprojmodal.value = false
+            updateform.reset()
 
         },
 
@@ -177,7 +212,7 @@ const addeditem = () => {
                                         </path>
                                     </svg>
                                 </button>
-                                <button aria-label="Bookmark this post" type="button" class="p-2 hover:text-blue-600"
+                                <button aria-label="Bookmark this post" type="button" @click="updateproject(project)" class="p-2 hover:text-blue-600"
                                     data-v-e9ac0302="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2" data-v-e9ac0302="">
@@ -256,5 +291,26 @@ const addeditem = () => {
             Save
         </DangerButton>
     </template>
-</DialogModal></template>
+</DialogModal>
+
+ <!--updateproj-->
+ <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
+        <template #title>
+            Add Sub Project
+        </template>
+        <template #content>
+        <Input v-model="updateform.name" type="text" label=" Item Name" />
+        <Input v-model="updateform.details" type="text" label="Description" />
+    </template>
+    <template #footer>
+        <SecondaryButton @click="updateprojmodal = false">
+            Cancel
+        </SecondaryButton>
+        <DangerButton class="ms-3" @click="updateitem()">
+            Save
+        </DangerButton>
+    </template>
+</DialogModal>
+
+</template>
 

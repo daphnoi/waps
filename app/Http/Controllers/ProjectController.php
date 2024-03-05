@@ -73,7 +73,11 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project -> update([
+            "name" => $request -> name,
+            "details" => $request -> details,
+        ]);
+        return back();
     }
 
     /**
