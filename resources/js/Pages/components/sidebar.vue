@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-const draw = ref(true);
+const draw = ref(false);
 
 </script>
 

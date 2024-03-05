@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -14,10 +15,15 @@ class ProjectController extends Controller
      */
     public function index() 
     {
-        $projects = Project::with("user")->paginate(5);
-        return Inertia::render("Project/Index",[
+        $projects = tap(Project::with("user")->with("items")->paginate(5))->map(function($query){
+            $query->setRelation("items",$query->items->take(10));
+            return $query;
+        });
+        // dd($projects);
+        return Inertia::render("Project/Index", [
             "Projects" => $projects
         ]);
+
         
     }
     
@@ -41,7 +47,6 @@ class ProjectController extends Controller
             "details" => $request -> details,
             "user_id" => Auth::user() -> id,
         ]);
- 
     }
 
 
@@ -76,10 +81,11 @@ class ProjectController extends Controller
      */
     public function destroy($id)
 {
-    $project = Project::findOrFail($id);
+    $project = Project::find($id);
     $project->delete();
 
-    return response()->json(['message' => 'Project deleted successfully']);
+    return back();
+
 }
 
 

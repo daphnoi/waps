@@ -2,36 +2,25 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import sidebar from './../components/sidebar.vue';
 import { onMounted, ref } from 'vue';
-import { useForm, usePage, router} from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import Pagination from '@/Components/Pagination.vue';
-import moment from 'moment';
+
 
 const props = defineProps([
     "Projects"
-])  
-
+])
 
 
 const form = useForm({
     name: "",
     details: "",
 })
-
-const itemform = useForm({
-    name: "",
-    description: "",
-    project_id:"",
-})
-
-
 const deleteModal = ref(false)
-
-const deleteprojid = ref(null)
 
 const project_Name = ref({
     'name': '',
@@ -43,13 +32,10 @@ const addprojectmodal = ref(false)
 const additemModal = ref(false)
 
 const addproject = (data) => {
-    form.reset();
     addprojectmodal.value = !addprojectmodal.value
 }
 
-
-const additem = (project_id) => {
-    itemform.project_id = project_id 
+const additem = (date) => {
     additemModal.value = !additemModal.value
 }
 
@@ -59,10 +45,9 @@ const createProject = () => {
     form.post(route("projects.store"), {
         onSuccess: () => {
             addprojectmodal.value = false
-            form.reset()
+            form.reset
 
         },
-
         onError: () => {
             alert("error")
 
@@ -72,45 +57,23 @@ const createProject = () => {
 }
 
 
-
-const _deleteProject = () => {
-    router.delete(route("projects.delete",{
-        id:deleteprojid.value
-    }),{
-        onSuccess: () => {
-            deleteModal.value = false
-            deleteprojid.value = null
-        }
-    })
+const _deleteProject = (data) => {
+    alert(data)
 }
 
 
-
-const openDeleteModal = (projectid) => {
-    deleteprojid.value = projectid;
-    deleteModal.value = true;
-
-
+const openDeleteModal = (name, date) => {
+    project_Name.value.name = name
+    project_Name.value.date = date
+    deleteModal.value = true
+    const now = new Date();
+    const day = now.getDay(); // returns a number representing the day of the week, starting with 0 for Sunday
+    const hours = now.getHours() % 12 || 12;
+    const minutes = now.getMinutes();
+    console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
 }
 
-const converttimedate = (time) => {
-    return moment(time).format('MMMM Do YYYY, h:mm:ss a');
-}
 
-const addeditem = () => {
-    itemform.post(route("items.store"), {
-        onSuccess: () => {
-            additemModal.value = false
-            itemform.reset()
-
-        },
-
-        onError: () => {
-            alert("error")
-
-        }
-    })
-}
 
 </script>
 
@@ -135,8 +98,8 @@ const addeditem = () => {
                 </button>
             </div>
 
-            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin]">
-                <div v-for="(project, index) in Projects.data" :key="index"
+            <div class="grid grid-rows-1 grid-cols-8 gap-5 px-[20vmin]">
+                <div v-for="(project, index) in Projects" :key="index"
                     class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg">
                     <div class="px-2  w-[100%] inline-block">
                         <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.user.profile_photo_url">
@@ -145,29 +108,32 @@ const addeditem = () => {
                             class="text-xl font-semibold text-orange-300 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
                             {{ project.projectname }}</p>
                         <p class="text-white text-md ">{{ project.date }} </p>
-                        <a
-                            class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300 cursor-pointer" :href= "route('items.index')"  >
-                            {{ project.name }} </a>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden  text-sm break-words"> Created at: {{ converttimedate(project.created_at ) }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden  text-sm br ak-words"> Updated at: {{ converttimedate(project.updated_at ) }} </p>
+                        <p
+                            class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300">
+                            {{ project.name }} </p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{
+                            project.created_at }} </p>
+                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{
+                            project.updated_at }} </p>
                         <p class="font-semibold text-[#ffffff] overflow-hidden text-md break-words">{{ project.details }}
                         </p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
-                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center uppercase  font-bold">Sub Projects</p> 
-                            <p class="text-white z-20 " v-for="(item, key) in project.items" :key="key" >#{{key + 1 }}&nbsp;{{item.name}}</p>
-
+                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center ">Sub Projects</p>
+                        <p
+                            class="text-white text-md   transition ease-in-out delay-150 border-4 border-gray-600 hover:border-gray-300 ease-in-out delay-150 hover:scale-[100%] duration-200 ">
+                            waps</p>
 
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
                             <button
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text- px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button" @click="additem(project.id)">
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button" @click="additem()">
                                 Add Item
                             </button>
 
 
                             <div class="flex flex-wrap justify-center gap-2 mt-4 text-[#ffffff]">
                                 <button aria-label="Share this post" type="button"
-                                    @click="openDeleteModal(project.id)"
+                                    @click="openDeleteModal(project.name, project.date)"
                                     class="p-2 hover:text-red-600 text-center" data-v-e9ac0302="">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor" stroke-width="2" data-v-e9ac0302="">
@@ -193,7 +159,8 @@ const addeditem = () => {
                 </div>
             </div>
             
-            <Pagination :data="Projects.data" />
+            <Pagination/>
+
             <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                 <template #title>
                     Delete File
@@ -219,7 +186,7 @@ const addeditem = () => {
 
 
     <!--CreateProject-->
-    <DialogModal :show="addprojectmodal" @close="!addprojectmodal" >
+    <DialogModal :show="addprojectmodal" @close="!addprojectmodal">
         <template #title>
             Add project
         </template>
@@ -245,14 +212,14 @@ const addeditem = () => {
             Add Sub Project
         </template>
         <template #content>
-        <Input v-model="itemform.name" type="text" label=" Item Name" />
-        <Input v-model="itemform.description" type="text" label="Description" />
+        <Input v-model="form.name" type="text" label="Project Name" />
+        <Input v-model="form.details" type="text" label="Details" />
     </template>
     <template #footer>
         <SecondaryButton @click="additemModal = false">
             Cancel
         </SecondaryButton>
-        <DangerButton class="ms-3" @click="addeditem()">
+        <DangerButton class="ms-3" @click="createsubProject">
             Save
         </DangerButton>
     </template>

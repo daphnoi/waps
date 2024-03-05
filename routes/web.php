@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProjectController;
+use App\Models\Item;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +39,12 @@ Route::middleware([
     Route::prefix('projects')->name('projects.')->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('index');
         Route::post('store/', [ProjectController::class, 'store'])->name('store');
+        Route::delete('delete/{id}', [ProjectController::class,'destroy'])->name('delete');
+    });
+
+    Route::prefix('items')->name('items.')->group(function () {
+        Route::get('/', [ItemController::class, 'index'])->name('index');
+        Route::post('store/', [ItemController::class, 'store'])->name('store');
     });
 
     

@@ -12,11 +12,12 @@ class Project extends Model
     use HasFactory;
     use SoftDeletes;
     protected $guarded = [];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+    public function items()
+    {
+        return $this->hasMany(Item::class)->orderBy("created_at", "desc");
+    }
 }
-
-
-
-
