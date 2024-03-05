@@ -14,12 +14,13 @@ class ProjectController extends Controller
      */
     public function index() 
     {
-        $projects = Project::with("user")->get();
+        $projects = Project::with("user")->paginate(5);
         return Inertia::render("Project/Index",[
             "Projects" => $projects
         ]);
-
+        
     }
+    
 
 
     /**
@@ -40,6 +41,7 @@ class ProjectController extends Controller
             "details" => $request -> details,
             "user_id" => Auth::user() -> id,
         ]);
+ 
     }
 
 
@@ -72,8 +74,15 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
-    {
-        //
-    }
+    public function destroy($id)
+{
+    $project = Project::findOrFail($id);
+    $project->delete();
+
+    return response()->json(['message' => 'Project deleted successfully']);
 }
+
+
+
+}
+

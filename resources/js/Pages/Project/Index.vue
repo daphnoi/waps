@@ -13,13 +13,16 @@ import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps([
     "Projects"
-])
+])  
+
 
 
 const form = useForm({
     name: "",
     details: "",
 })
+
+
 const deleteModal = ref(false)
 
 const project_Name = ref({
@@ -32,10 +35,13 @@ const addprojectmodal = ref(false)
 const additemModal = ref(false)
 
 const addproject = (data) => {
+    form.reset();
     addprojectmodal.value = !addprojectmodal.value
 }
 
-const additem = (date) => {
+
+const additem = (data) => {
+    form.reset();
     additemModal.value = !additemModal.value
 }
 
@@ -45,9 +51,10 @@ const createProject = () => {
     form.post(route("projects.store"), {
         onSuccess: () => {
             addprojectmodal.value = false
-            form.reset
+            form.reset()
 
         },
+
         onError: () => {
             alert("error")
 
@@ -57,8 +64,9 @@ const createProject = () => {
 }
 
 
-const _deleteProject = (data) => {
-    alert(data)
+
+const _deleteProject = (project) => {
+             alert("Project Deleted");
 }
 
 
@@ -98,8 +106,8 @@ const openDeleteModal = (name, date) => {
                 </button>
             </div>
 
-            <div class="grid grid-rows-1 grid-cols-8 gap-5 px-[20vmin]">
-                <div v-for="(project, index) in Projects" :key="index"
+            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin]">
+                <div v-for="(project, index) in Projects.data" :key="index"
                     class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg">
                     <div class="px-2  w-[100%] inline-block">
                         <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.user.profile_photo_url">
@@ -118,10 +126,10 @@ const openDeleteModal = (name, date) => {
                         <p class="font-semibold text-[#ffffff] overflow-hidden text-md break-words">{{ project.details }}
                         </p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
-                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center ">Sub Projects</p>
+                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center uppercase  font-bold">Sub Projects</p>
                         <p
                             class="text-white text-md   transition ease-in-out delay-150 border-4 border-gray-600 hover:border-gray-300 ease-in-out delay-150 hover:scale-[100%] duration-200 ">
-                            waps</p>
+                            {{ project.name}}</p>
 
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
                             <button
@@ -159,7 +167,7 @@ const openDeleteModal = (name, date) => {
                 </div>
             </div>
             
-            <Pagination/>
+            <Pagination :data="Projects.data" />
                    
             <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                 <template #title>
@@ -186,7 +194,7 @@ const openDeleteModal = (name, date) => {
 
 
     <!--CreateProject-->
-    <DialogModal :show="addprojectmodal" @close="!addprojectmodal">
+    <DialogModal :show="addprojectmodal" @close="!addprojectmodal" >
         <template #title>
             Add project
         </template>
@@ -219,7 +227,7 @@ const openDeleteModal = (name, date) => {
         <SecondaryButton @click="additemModal = false">
             Cancel
         </SecondaryButton>
-        <DangerButton class="ms-3" @click="createsubProject">
+        <DangerButton class="ms-3" @click="addsubProject">
             Save
         </DangerButton>
     </template>

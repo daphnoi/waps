@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function Laravel\Prompts\table;
+
 return new class extends Migration
 {
     /**
@@ -15,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("details");
-            $table->foreignid("user_id");
+            $table->foreignId("user_id"); 
             $table->softDeletes();
             $table->timestamps();
         });
-    }
+    }    
+
 
     /**
      * Reverse the migrations.
@@ -29,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('projects');
     }
 };
+   
