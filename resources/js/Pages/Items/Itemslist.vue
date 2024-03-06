@@ -10,17 +10,35 @@ import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import Pagination from '@/Components/Pagination.vue';
 
-
+// props
 const props = defineProps([
     "Projects"
-])
+])  
 
-
+//useforms 
 const form = useForm({
     name: "",
     details: "",
 })
+
+const updateform = useForm({
+    name:"",
+    details:"",
+    project:{},
+})
+
+const itemform = useForm({
+    name: "",
+    description: "",
+    project_id:"",
+})
+
+//openf
 const deleteModal = ref(false)
+
+const updateModal = ref(false)
+
+const deleteprojid = ref(null)
 
 const project_Name = ref({
     'name': '',
@@ -29,13 +47,27 @@ const project_Name = ref({
 
 const addprojectmodal = ref(false)
 
+const updateprojmodal = ref(false)
+
 const additemModal = ref(false)
 
+
+//twfunctions
 const addproject = (data) => {
+    form.reset();
     addprojectmodal.value = !addprojectmodal.value
 }
 
-const additem = (date) => {
+const updateproject = (project) => {
+    updateform.project=project
+    updateform.name=project.name
+    updateform.details=project.details
+    updateprojmodal.value = !updateprojmodal.value
+}
+
+
+const additem = (project_id) => {
+    itemform.project_id = project_id 
     additemModal.value = !additemModal.value
 }
 
@@ -45,32 +77,73 @@ const createProject = () => {
     form.post(route("projects.store"), {
         onSuccess: () => {
             addprojectmodal.value = false
-            form.reset
+            form.reset()
 
         },
+
         onError: () => {
             alert("error")
 
         }
     })
 
-    }
-
-
-const _deleteProject = (data) => {
-    alert(data)
 }
 
 
-const openDeleteModal = (name, date) => {
-    project_Name.value.name = name
-    project_Name.value.date = date
-    deleteModal.value = true
-    const now = new Date();
-    const day = now.getDay(); // returns a number representing the day of the week, starting with 0 for Sunday
-    const hours = now.getHours() % 12 || 12;
-    const minutes = now.getMinutes();
-    console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
+const _deleteProject = () => {
+    router.delete(route("projects.delete",{
+        id:deleteprojid.value
+    }),{
+        onSuccess: () => {
+            deleteModal.value = false
+            deleteprojid.value = null
+        }
+    })
+}
+
+
+const openDeleteModal = (projectid) => {
+    deleteprojid.value = projectid;
+    deleteModal.value = true;
+
+
+}
+
+const converttimedate = (time) => {
+    return moment(time).format('MMMM Do YYYY, h:mm:ss a');
+}
+
+const addeditem = () => {
+    itemform.post(route("items.store"), {
+        onSuccess: () => {
+            additemModal.value = false
+            itemform.reset()
+
+        },
+
+        onError: () => {
+            alert("error")
+
+        }
+    })
+}
+
+const updateitem = () => {
+    updateform.put(route("projects.update",
+    {
+        project :updateform.project
+    }),{
+    onSuccess: () => {
+        updateprojmodal.value = false
+            updateform.reset()
+
+        },
+
+        onError: () => {
+            alert("error")
+
+        }
+    })
 }
 
 </script>
@@ -82,7 +155,7 @@ const openDeleteModal = (name, date) => {
         <sidebar />
         <div class=" h-[100vmin]">
             <div class=" mx-auto py-7 sm:px-10 ml-9 font-sans text-4xl font-semibold text-blue-900 ">
-                List of Projects
+                List of Sub Projects
             </div>
             <form class=" absolute fixed top-[8vmin] right-[18vh] w-[30vh] ">   
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only text-white">Search</label>     
@@ -109,7 +182,7 @@ const openDeleteModal = (name, date) => {
             </div>
             <div 
                     class=" bg-gray-800 rounded-lg shadow mt-2 ml-14 mr-14 gap-1 h-[75vmin] items-left">
-                    <div class="overflow-x-auto relative sm:rounded-lg fadeIn" data-v-d02c8774="" >
+                    <div  class="overflow-x-auto relative sm:rounded-lg fadeIn" data-v-d02c8774="" >
                         <table class="w-full text-sm text-left text-gray-500 text-gray-400" data-v-d02c8774="">
                             <thead class="text-xs text-gray-700 uppercase text-white bg-white-700 text-gray-400" data-v-d02c8774="">
                                 <tr data-v-d02c8774="">
@@ -131,7 +204,7 @@ const openDeleteModal = (name, date) => {
                                             <div class="text-base font-semibold" data-v-d02c8774="">February 28th 2024, 1:48:00 pm</div>
                                             <div class="font-normal text-gray-500" data-v-d02c8774="">7 days ago</div>
                                         </td><td class="py-4 relative mx-n5" data-v-d02c8774="">
-                                            <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-orange-600 hover:bg-orange-700 focus:ring-orange-800" data-v-d02c8774="">
+                                            <button @click="updateproject(project)"  type="button" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-orange-600 hover:bg-orange-700 focus:ring-orange-800" data-v-d02c8774="">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" data-v-d02c8774="">
                                                     </path>
@@ -143,7 +216,7 @@ const openDeleteModal = (name, date) => {
                                                         </path>
                                                     </svg>
                                                 </button>
-                                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" data-v-d02c8774=""><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">
+                                                <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" data-v-d02c8774=""><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" data-v-d02c8774="">
                                                         </path>
@@ -176,5 +249,65 @@ const openDeleteModal = (name, date) => {
             </ConfirmationModal>
             </div>
     </AppLayout>
+
+     <!--CreateProject-->
+     <DialogModal :show="addprojectmodal" @close="!addprojectmodal" >
+        <template #title>
+            Add project
+        </template>
+        <template #content>
+            <Input v-model="form.name" type="text" label="Project Name" />
+            <Input v-model="form.details" type="text" label="Project Details" />
+        </template>
+        <template #footer>
+            <SecondaryButton @click="addprojectmodal = false">
+                Cancel
+            </SecondaryButton>
+            <DangerButton class="ms-3" @click="createProject">
+                Save
+            </DangerButton>
+        </template>
+    </DialogModal>
+
+
+
+    <!--AddItem-->
+    <DialogModal :show="additemModal" @close="!additemModal">
+        <template #title>
+            Add Sub Project
+        </template>
+        <template #content>
+        <Input v-model="itemform.name" type="text" label=" Item Name" />
+        <Input v-model="itemform.description" type="text" label="Description" />
+    </template>
+    <template #footer>
+        <SecondaryButton @click="additemModal = false">
+            Cancel
+        </SecondaryButton>
+        <DangerButton class="ms-3" @click="addeditem()">
+            Save
+        </DangerButton>
+    </template>
+</DialogModal>
+
+ <!--updateproj-->
+ <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
+        <template #title>
+            Add Sub Project
+        </template>
+        <template #content>
+        <Input v-model="updateform.name" type="text" label=" Item Name" />
+        <Input v-model="updateform.details" type="text" label="Description" />
+    </template>
+    <template #footer>
+        <SecondaryButton @click="updateprojmodal = false">
+            Cancel
+        </SecondaryButton>
+        <DangerButton class="ms-3" @click="updateitem()">
+            Save
+        </DangerButton>
+    </template>
+</DialogModal>
+
 </template>
 
