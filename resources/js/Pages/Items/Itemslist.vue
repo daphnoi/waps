@@ -54,7 +54,7 @@ const createProject = () => {
         }
     })
 
-}
+    }
 
 
 const _deleteProject = (data) => {
@@ -73,95 +73,91 @@ const openDeleteModal = (name, date) => {
     console.log(`Today is day ${day} and the time is ${hours}:${minutes}.`);
 }
 
-
-
 </script>
 
 <template>
-    <AppLayout title="Projects">
+    <AppLayout title="List of items">
         <template #header>
         </template>
         <sidebar />
         <div class=" h-[100vmin]">
-            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-4xl font-extrabold ml-10 uppercase  text-blue-900  ">
-                Projects
+            <div class=" mx-auto py-7 sm:px-10 ml-9 font-sans text-4xl font-semibold text-blue-900 ">
+                List of Projects
             </div>
-            <div class="absolute fixed top-[9vmin] right-14">
-                <button type="button " @click="addproject()"
-                    class=" flex flex-wrap text-white bg-[#f39202]  hover:bg-gray-950  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
-                    Create New Project
-                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            <form class=" absolute fixed top-[8vmin] right-[18vh] w-[30vh] ">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only text-white">Search</label>     
+                <div class="relative">
+                    <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    </div>
+                <input type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
+                <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                </div>
+            </form>
+            <div class="absolute fixed top-[8.5vmin] right-14">
+                <button type="button " @click="back()"
+                    class=" flex flex-wrap text-white bg-[#f39202] hover:bg-gray-950 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
+                    Back
+                    <svg class="rtl:rotate-180 w-6 h-6 ms-4" aria-hidden="true" xmlns="https://www.svgrepo.com/show/533620/arrow-sm-left.svg"
                         fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M1 5h12m0 0L9 1m4 4L9 9" />
                     </svg>
                 </button>
             </div>
-
-            <div class="grid grid-rows-1 grid-cols-8 gap-5 px-[20vmin]">
-                <div v-for="(project, index) in Projects" :key="index"
-                    class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg">
-                    <div class="px-2  w-[100%] inline-block">
-                        <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.user.profile_photo_url">
-                        <div class="font-semibold text-[#ffffff] overflow-hidden ">{{ project.user.name }} </div>
-                        <p
-                            class="text-xl font-semibold text-orange-300 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
-                            {{ project.projectname }}</p>
-                        <p class="text-white text-md ">{{ project.date }} </p>
-                        <p
-                            class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300">
-                            {{ project.name }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{
-                            project.created_at }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden uppercase text-sm break-words">{{
-                            project.updated_at }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden text-md break-words">{{ project.details }}
-                        </p>
-                        <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
-                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center ">Sub Projects</p>
-                        <p
-                            class="text-white text-md   transition ease-in-out delay-150 border-4 border-gray-600 hover:border-gray-300 ease-in-out delay-150 hover:scale-[100%] duration-200 ">
-                            waps</p>
-
-                        <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
-                            <button
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button" @click="additem()">
-                                Add Item
-                            </button>
-
-
-                            <div class="flex flex-wrap justify-center gap-2 mt-4 text-[#ffffff]">
-                                <button aria-label="Share this post" type="button"
-                                    @click="openDeleteModal(project.name, project.date)"
-                                    class="p-2 hover:text-red-600 text-center" data-v-e9ac0302="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="2" data-v-e9ac0302="">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                            data-v-e9ac0302="">
-                                        </path>
-                                    </svg>
-                                </button>
-                                <button aria-label="Bookmark this post" type="button" class="p-2 hover:text-blue-600"
-                                    data-v-e9ac0302="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="2" data-v-e9ac0302="">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                                            data-v-e9ac0302="">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </div>
+            <div 
+                    class=" bg-gray-800 rounded-lg shadow mt-2 ml-14 mr-14 gap-1 h-[75vmin] items-left">
+                    <div class="overflow-x-auto relative sm:rounded-lg fadeIn" data-v-d02c8774="" >
+                        <table class="w-full text-sm text-left text-gray-500 text-gray-400" data-v-d02c8774="">
+                            <thead class="text-xs text-gray-700 uppercase text-white bg-white-700 text-gray-400" data-v-d02c8774="">
+                                <tr data-v-d02c8774="">
+                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Project Name </th>
+                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Owner</th>
+                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Updated By </th>
+                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Created at </th>
+                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Updated At </th>
+                                    <th scope="col" class="py-3 px-15" data-v-d02c8774=""> Action </th></tr>
+                                </thead>
+                                <tbody data-v-d02c8774=""><tr class="bg-white border-b bg-gray-900 border-gray-700"  data-v-d02c8774="">
+                                    <th scope="row" class="py-4 hover:text-blue-700 px-6 font-bold text-gray-900 cursor-pointer whitespace-nowrap text-white" data-v-d02c8774="">
+                                        <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">Te </a>
+                                    </th>
+                                    <td class="py-4 px-6" data-v-d02c8774="">daphne</td>
+                                    <td class="py-4 px-6" data-v-d02c8774="">daphne</td>
+                                    <td class="py-4 px-6" data-v-d02c8774=""><div class="text-base font-semibold" data-v-d02c8774="">February 28th 2024, 1:48:00 pm</div>
+                                        <div class="font-normal text-gray-500" data-v-d02c8774="">7 days ago</div></td><td class="py-4 px-6" data-v-d02c8774="">
+                                            <div class="text-base font-semibold" data-v-d02c8774="">February 28th 2024, 1:48:00 pm</div>
+                                            <div class="font-normal text-gray-500" data-v-d02c8774="">7 days ago</div>
+                                        </td><td class="py-4 relative mx-n5" data-v-d02c8774="">
+                                            <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-orange-600 hover:bg-orange-700 focus:ring-orange-800" data-v-d02c8774="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" data-v-d02c8774="">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                            <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-red-600 hover:bg-red-700 focus:ring-blue-800" data-v-d02c8774="">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" data-v-d02c8774="">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" data-v-d02c8774=""><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" data-v-d02c8774="">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <Pagination/>
-
-            <ConfirmationModal :show="deleteModal" @close="!deleteModal">
+                    <!-- Delete item -->
+                    <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                 <template #title>
                     Delete File
                 </template>
@@ -169,7 +165,6 @@ const openDeleteModal = (name, date) => {
                     Are you sure you would like to delete {{ project_Name.name }}? <br>
                     <small>{{ project_Name.date }}</small>
                 </template>
-
                 <template #footer>
                     <SecondaryButton @click="deleteModal = false">
                         Cancel
@@ -179,49 +174,7 @@ const openDeleteModal = (name, date) => {
                     </DangerButton>
                 </template>
             </ConfirmationModal>
-        </div>
+            </div>
     </AppLayout>
-
-
-
-
-    <!--CreateProject-->
-    <DialogModal :show="addprojectmodal" @close="!addprojectmodal">
-        <template #title>
-            Add project
-        </template>
-        <template #content>
-            <Input v-model="form.name" type="text" label="Project Name" />
-            <Input v-model="form.details" type="text" label="Project Details" />
-        </template>
-        <template #footer>
-            <SecondaryButton @click="addprojectmodal = false">
-                Cancel
-            </SecondaryButton>
-            <DangerButton class="ms-3" @click="createProject">
-                Save
-            </DangerButton>
-        </template>
-    </DialogModal>
-
-
-
-    <!--AddItem-->
-    <DialogModal :show="additemModal" @close="!additemModal">
-        <template #title>
-            Add Sub Project
-        </template>
-        <template #content>
-        <Input v-model="form.name" type="text" label="Project Name" />
-        <Input v-model="form.details" type="text" label="Details" />
-    </template>
-    <template #footer>
-        <SecondaryButton @click="additemModal = false">
-            Cancel
-        </SecondaryButton>
-        <DangerButton class="ms-3" @click="createsubProject">
-            Save
-        </DangerButton>
-    </template>
-</DialogModal></template>
+</template>
 

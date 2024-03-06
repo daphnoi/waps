@@ -19,10 +19,10 @@ import { usePage } from '@inertiajs/vue3';
         </template>
         <sidebar />
         <div class=" h-[100vmin]">
-            <div class=" mx-auto py-12 sm:px-6 lg:px-9">
+            <div class=" mx-auto py-5 sm:px-6 lg:px-9">
                 <div class="flex justify-between mx-auto">
                     <div>
-                        <h5 class="font-sans text-4xl font-semibold text-gray-500">
+                        <h5 class="font-sans text-4xl font-semibold text-gray-500 ml-10 ">
                             <!-- Hello {{ $page.props.auth.user.name }}!  -->
                             Hello {{ usePage().props.auth.user.name }}! 
                             <p class="text-[#000000] font-sans">
@@ -32,7 +32,7 @@ import { usePage } from '@inertiajs/vue3';
                     </div>
                 </div>
                 <div
-                    class="md:flex bg-gray-800 rounded-lg shadow p-3 mt-5 gap-1 h-[75vmin]">
+                    class="md:flex bg-gray-800 rounded-lg shadow p-3 mt-5 ml-10 mr-10 gap-2 h-[75vmin]">
                     <div class="w-[100%] mb-2 lg:mb-0 lg:w-[90%]  overflow-auto">
                         <table class=" w-full border rounded-lg  h-full text-left  text-gray-500  sm:rounded-lg ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
