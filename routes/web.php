@@ -47,7 +47,7 @@ Route::middleware([
         Route::get('/', [ItemController::class, 'index'])->name('index');
         Route::post('store/', [ItemController::class, 'store'])->name('store');
         Route::delete('delete/{id}', [ItemController::class,'destroy'])->name('delete');
-        Route::put('update/{project}', [ItemController::class,'update'])->name('update');
+        Route::put('update/{items}', [ItemController::class,'update'])->name('update');
     });
 
     
