@@ -67,14 +67,21 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $item -> update([
+            "name" => $request -> name,
+            "details" => $request -> details,
+        ]);
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+
+    return back();
     }
 }

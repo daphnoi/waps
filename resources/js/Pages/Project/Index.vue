@@ -11,12 +11,13 @@ import Input from '@/Components/Input.vue';
 import Pagination from '@/Components/Pagination.vue';
 import moment from 'moment';
 
+
+// props
 const props = defineProps([
     "Projects"
 ])  
 
-
-
+//useforms 
 const form = useForm({
     name: "",
     details: "",
@@ -34,7 +35,7 @@ const itemform = useForm({
     project_id:"",
 })
 
-
+//openf
 const deleteModal = ref(false)
 
 const updateModal = ref(false)
@@ -52,6 +53,8 @@ const updateprojmodal = ref(false)
 
 const additemModal = ref(false)
 
+
+//twfunctions
 const addproject = (data) => {
     form.reset();
     addprojectmodal.value = !addprojectmodal.value
@@ -89,7 +92,6 @@ const createProject = () => {
 }
 
 
-
 const _deleteProject = () => {
     router.delete(route("projects.delete",{
         id:deleteprojid.value
@@ -100,7 +102,6 @@ const _deleteProject = () => {
         }
     })
 }
-
 
 
 const openDeleteModal = (projectid) => {
@@ -155,12 +156,24 @@ const updateitem = () => {
         </template>
         <sidebar />
         <div class=" h-[100vmin]">
-            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-4xl font-extrabold ml-10 uppercase  text-blue-900  ">
+            <div class=" mx-auto py-7 sm:px-10 lg:px10 text-5xl font-extrabold ml-10 uppercase text-blue-900  ">
                 Projects
             </div>
-            <div class="absolute fixed top-[9vmin] right-14">
+            <form class=" absolute fixed top-[9vmin] right-[23vh] w-[30vh] ">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>     
+                <div class="relative">
+                     <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    </div>
+                <input type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
+                <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                </div>
+            </form>
+            <div class="absolute fixed top-[9vmin] right-14 ">
                 <button type="button " @click="addproject()"
-                    class=" flex flex-wrap text-white bg-[#f39202]  hover:bg-gray-950  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
+                    class=" flex flex-wrap text-white bg-[#f39202]  hover:bg-gray-950  font-medium rounded-lg text-sm px-6 py-4 text-center inline-flex items-center ">
                     Create New Project
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 14 10">
@@ -183,13 +196,13 @@ const updateitem = () => {
                         <a
                             class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300 cursor-pointer" :href= "route('items.index')"  >
                             {{ project.name }} </a>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden  text-sm break-words"> Created at: {{ converttimedate(project.created_at ) }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden  text-sm br ak-words"> Updated at: {{ converttimedate(project.updated_at ) }} </p>
-                        <p class="font-semibold text-[#ffffff] overflow-hidden text-md break-words">{{ project.details }}
+                        <p class="font-semibold text-blue-300 overflow-hidden  text-md break-words "> Created: {{ converttimedate(project.created_at ) }} </p>
+                        <p class="font-semibold text-blue-200 overflow-hidden  text-md br ak-words"> Updated: {{ converttimedate(project.updated_at ) }} </p>
+                        <p class="font-semibold text-gray-200 overflow-hidden text-md break-words">{{ project.details }}
                         </p>
-                        <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700">
-                        <p class="text-2xl mb-2 font-md text-[#ffffff] overflow-hidden text-center uppercase  font-bold">Sub Projects</p> 
-                            <p class="text-white z-20 " v-for="(item, key) in project.items" :key="key" >#{{key + 1 }}&nbsp;{{item.name}}</p>
+                        <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700 flex bg-fixed">
+                        <p class="text-2xl mb-2  font-md text-gray-200 overflow-hidden text-center uppercase  font-bold">Sub Projects</p> 
+                            <p class="text-white pt-2 text-xl mt-2 transition ease-in-out delay-150 border-gray-600 hover:bg-gray-500 ease-in-out delay-150  duration-200" v-for="(item, key) in project.items" :key="key" >{{key + 1 }} . &nbsp;{{item.name}}</p>
 
 
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
@@ -227,8 +240,11 @@ const updateitem = () => {
                     </div>
                 </div>
             </div>
-            
+
+     <!--Pagination--> 
             <Pagination :data="Projects.data" />
+
+       <!--Deleteproject-->
             <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                 <template #title>
                     Delete File
@@ -311,6 +327,5 @@ const updateitem = () => {
         </DangerButton>
     </template>
 </DialogModal>
-
 </template>
 
