@@ -45,10 +45,7 @@ async function fetchItems() {
   }
 }
 
-
 </script>
-
-
 
 <template>
   <div class="flex flex-col items-center mt-6 text-2xl">

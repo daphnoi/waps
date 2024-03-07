@@ -9,10 +9,12 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import Pagination from '@/Components/Pagination.vue';
+import moment from 'moment';
+
 
 // props
 const props = defineProps([
-    "Projects"
+    "Items"
 ])  
 
 //useforms 
@@ -49,14 +51,8 @@ const addprojectmodal = ref(false)
 
 const updateprojmodal = ref(false)
 
-const additemModal = ref(false)
 
 
-//twfunctions
-const addproject = (data) => {
-    form.reset();
-    addprojectmodal.value = !addprojectmodal.value
-}
 
 const updateproject = (project) => {
     updateform.project=project
@@ -66,32 +62,10 @@ const updateproject = (project) => {
 }
 
 
-const additem = (project_id) => {
-    itemform.project_id = project_id 
-    additemModal.value = !additemModal.value
-}
-
-
-
-const createProject = () => {
-    form.post(route("projects.store"), {
-        onSuccess: () => {
-            addprojectmodal.value = false
-            form.reset()
-
-        },
-
-        onError: () => {
-            alert("error")
-
-        }
-    })
-
-}
 
 
 const _deleteProject = () => {
-    router.delete(route("projects.delete",{
+    router.delete(route("items.delete",{
         id:deleteprojid.value
     }),{
         onSuccess: () => {
@@ -113,23 +87,9 @@ const converttimedate = (time) => {
     return moment(time).format('MMMM Do YYYY, h:mm:ss a');
 }
 
-const addeditem = () => {
-    itemform.post(route("items.store"), {
-        onSuccess: () => {
-            additemModal.value = false
-            itemform.reset()
-
-        },
-
-        onError: () => {
-            alert("error")
-
-        }
-    })
-}
 
 const updateitem = () => {
-    updateform.put(route("projects.update",
+    updateform.put(route("Project.update",
     {
         project :updateform.project
     }),{
@@ -170,7 +130,7 @@ const updateitem = () => {
                 </div>
             </form>
             <div class="absolute fixed top-[8.5vmin] right-14">
-                <button type="button " @click="back()"
+                <button type="button "
                     class=" flex flex-wrap text-white bg-[#f39202] hover:bg-gray-950 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
                     Back
                     <svg class="rtl:rotate-180 w-6 h-6 ms-4" aria-hidden="true" xmlns="https://www.svgrepo.com/show/533620/arrow-sm-left.svg"
@@ -180,55 +140,59 @@ const updateitem = () => {
                     </svg>
                 </button>
             </div>
-            <div 
-                    class=" bg-gray-800 rounded-lg shadow mt-2 ml-14 mr-14 gap-1 h-[75vmin] items-left">
-                    <div  class="overflow-x-auto relative sm:rounded-lg fadeIn" data-v-d02c8774="" >
-                        <table class="w-full text-sm text-left text-gray-500 text-gray-400" data-v-d02c8774="">
-                            <thead class="text-xs text-gray-700 uppercase text-white bg-white-700 text-gray-400" data-v-d02c8774="">
-                                <tr data-v-d02c8774="">
-                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Project Name </th>
-                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Owner</th>
-                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Updated By </th>
-                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Created at </th>
-                                    <th scope="col" class="py-3 px-6" data-v-d02c8774=""> Updated At </th>
-                                    <th scope="col" class="py-3 px-15" data-v-d02c8774=""> Action </th></tr>
-                                </thead>
-                                <tbody data-v-d02c8774=""><tr class="bg-white border-b bg-gray-900 border-gray-700"  data-v-d02c8774="">
-                                    <th scope="row" class="py-4 hover:text-blue-700 px-6 font-bold text-gray-900 cursor-pointer whitespace-nowrap text-white" data-v-d02c8774="">
-                                        <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">Te </a>
-                                    </th>
-                                    <td class="py-4 px-6" data-v-d02c8774="">daphne</td>
-                                    <td class="py-4 px-6" data-v-d02c8774="">daphne</td>
-                                    <td class="py-4 px-6" data-v-d02c8774=""><div class="text-base font-semibold" data-v-d02c8774="">February 28th 2024, 1:48:00 pm</div>
-                                        <div class="font-normal text-gray-500" data-v-d02c8774="">7 days ago</div></td><td class="py-4 px-6" data-v-d02c8774="">
-                                            <div class="text-base font-semibold" data-v-d02c8774="">February 28th 2024, 1:48:00 pm</div>
-                                            <div class="font-normal text-gray-500" data-v-d02c8774="">7 days ago</div>
-                                        </td><td class="py-4 relative mx-n5" data-v-d02c8774="">
-                                            <button @click="updateproject(project)"  type="button" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-orange-600 hover:bg-orange-700 focus:ring-orange-800" data-v-d02c8774="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" data-v-d02c8774="">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                            <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-red-600 hover:bg-red-700 focus:ring-blue-800" data-v-d02c8774="">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" data-v-d02c8774="">
-                                                        </path>
-                                                    </svg>
-                                                </button>
-                                                <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" data-v-d02c8774=""><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" data-v-d02c8774="">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" data-v-d02c8774="">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" data-v-d02c8774="">
-                                                        </path>
-                                                    </svg>
-                                                </a>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="bg-gray-900 rounded-lg shadow ml-[9vh] mr-[9vh] ">
+                        <div>
+                            <table class="w-full ">
+                                    <thead class="text-md uppercase text-white bg-blue-900 shadow-lg">
+                                        <tr class="flex justify-start text-left font-bold text-2xl ">
+                                            <th class="py-3 px-6 w-1/6 ">Project Name</th>
+                                            <th class="py-3 px-6 w-1/6 ">Owner</th>
+                                            <th class="py-3 px-6 w-1/6 ">Updated By</th>
+                                            <th class="py-3 px-6 w-1/6 ">Created at</th>
+                                            <th class="py-3 px-3 w-1/6 ">Updated At</th>
+                                            <th class="py-3 px-16 w-1/6 mr-[-9vh] ">Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        <div class="overflow-x-auto inline-fixed">
+                            <div class="w-full  bg-gray-700 max-h-screen overflow-y-auto ">
+                                <template v-for="(project, index) in Items" :key="index">
+                                    <div class="bg-gray-200 border-gray-700 mt-2 hover:bg-gray-300  flex justify-start items-center  text-2xl">
+                                        <div class="w-1/6 py-4 px-6  ">
+                                            <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16">{{ project.name }}</a>
+                                        </div>
+                                        <div class="w-1/6 py-4 px-6">{{ project.user.name }}</div>
+                                        <div class="w-1/6 py-4 px-6 ">daphne</div>
+                                        <div class="w-1/6 py-4 px-5">{{ converttimedate(project.created_at) }}</div>
+                                        <div class="w-1/6 py-4 px-5">{{ converttimedate(project.updated_at) }}</div>
+                                        <div class="w-1/6 py-4 px-16 flex">
+                                            <button @click="updateproject(project)" type="button" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-orange-600 hover:bg-orange-700 focus:ring-orange-800" >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" >
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" >
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button @click="openDeleteModal(project.id)" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-red-600 hover:bg-red-700 focus:ring-blue-800" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" >
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                        <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" ><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" >
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                    </button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                     </div>
+
                     <!-- Delete item -->
                     <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                 <template #title>
@@ -250,45 +214,6 @@ const updateitem = () => {
             </div>
     </AppLayout>
 
-     <!--CreateProject-->
-     <DialogModal :show="addprojectmodal" @close="!addprojectmodal" >
-        <template #title>
-            Add project
-        </template>
-        <template #content>
-            <Input v-model="form.name" type="text" label="Project Name" />
-            <Input v-model="form.details" type="text" label="Project Details" />
-        </template>
-        <template #footer>
-            <SecondaryButton @click="addprojectmodal = false">
-                Cancel
-            </SecondaryButton>
-            <DangerButton class="ms-3" @click="createProject">
-                Save
-            </DangerButton>
-        </template>
-    </DialogModal>
-
-
-
-    <!--AddItem-->
-    <DialogModal :show="additemModal" @close="!additemModal">
-        <template #title>
-            Add Sub Project
-        </template>
-        <template #content>
-        <Input v-model="itemform.name" type="text" label=" Item Name" />
-        <Input v-model="itemform.description" type="text" label="Description" />
-    </template>
-    <template #footer>
-        <SecondaryButton @click="additemModal = false">
-            Cancel
-        </SecondaryButton>
-        <DangerButton class="ms-3" @click="addeditem()">
-            Save
-        </DangerButton>
-    </template>
-</DialogModal>
 
  <!--updateproj-->
  <DialogModal :show="updateprojmodal" @close="!updateprojmodal">

@@ -203,7 +203,7 @@ const updateitem = () => {
                         </p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700 flex bg-fixed">
                         <p class="text-2xl mb-2  font-md text-gray-200 overflow-hidden text-center uppercase  font-bold">Sub Projects</p> 
-                            <p class="text-white pt-2 text-xl mt-2 transition ease-in-out delay-150 border-gray-600 hover:bg-gray-500 ease-in-out delay-150  duration-200" v-for="(item, key) in project.items" :key="key" >{{key + 1 }} . &nbsp;{{item.name}}</p>
+                            <p class="text-white pt-2 text-xl mt-2 transition border-gray-600 hover:bg-gray-500 ease-in-out delay-150  duration-150" v-for="(item, key) in project.items" :key="key" >{{key + 1 }} . &nbsp;{{item.name}}</p>
 
 
                         <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
