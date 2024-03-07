@@ -12,6 +12,7 @@ import Pagination from '@/Components/Pagination.vue';
 import moment from 'moment';
 
 
+
 // props
 const props = defineProps([
     "Projects"
@@ -312,7 +313,7 @@ const updateitem = () => {
  <!--updateproj-->
  <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
         <template #title>
-            Add Sub Project
+            Update Project 
         </template>
         <template #content>
         <Input v-model="updateform.name" type="text" label=" Item Name" />
