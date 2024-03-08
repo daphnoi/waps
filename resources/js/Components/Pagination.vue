@@ -48,10 +48,10 @@ async function fetchItems() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center mt-6 text-2xl">
+  <div class="flex flex-col items-center mt-6 text-2xl text-white">
     <div class="flex items-center gap-4">
       <button @click="prevPage" :disabled="currentPage === 1"
-        class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center  uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
           aria-hidden="true" class="w-4 h-4">
@@ -69,7 +69,7 @@ async function fetchItems() {
         </button>
       </div>
       <button @click="nextPage" :disabled="currentPage === totalPages"
-        class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center  uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button">
         Next
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"

@@ -22,7 +22,7 @@ class Item extends Model
     public function project () {
         return $this->belongsto(Project::class);
     }
-
+    
 }
 
 

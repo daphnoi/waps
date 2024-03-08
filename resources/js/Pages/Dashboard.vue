@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import sidebar from './components/sidebar.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, withDirectives } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
 
@@ -20,19 +20,19 @@ import { usePage } from '@inertiajs/vue3';
         <sidebar />
         <div class=" h-[100vmin]">
             <div class=" mx-auto py-5 sm:px-6 lg:px-9">
-                <div class="flex justify-between mx-auto">
+                <div class="justify-between mx-auto text-right mr-11">
                     <div>
-                        <h5 class="font-sans text-4xl font-semibold text-gray-500 ml-10 ">
+                        <h5 class="font-sans text-4xl font-semibold text-white ">
                             <!-- Hello {{ $page.props.auth.user.name }}!  -->
                             Hello {{ usePage().props.auth.user.name }}! 
-                            <p class="text-[#000000] font-sans">
+                            <p class="text-gray-300 font-sans">
                                 Welcome to your Dashboard Overview
                             </p>
                         </h5>
                     </div>
                 </div>
                 <div
-                    class="md:flex bg-gray-800 rounded-lg shadow p-3 mt-5 ml-10 mr-10 gap-2 h-[75vmin]">
+                    class="md:flex bg-gray-500 rounded-lg shadow-lg p-2 mt-5 ml-[20vh] mr-10 gap-2 h-[80vmin]">
                     <div class="w-[100%] mb-2 lg:mb-0 lg:w-[90%]  overflow-auto">
                         <table class=" w-full border rounded-lg  h-full text-left  text-gray-500  sm:rounded-lg ">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -181,9 +181,9 @@ import { usePage } from '@inertiajs/vue3';
                             </tbody>
                         </table>
                     </div>
-                    <div class="w-[100%] lg:w-[37%] max-h-[50vmin] h-[50vmin] ">
+                    <div class="lg:w-[37%] max-h-[50vmin] ">
                         <div
-                            class="h-full grid grid-cols-8 grid-rows-8 gap-2 gap-y-2 grid grid pt-[0.5] px-1 pb-2">
+                            class="h-full grid grid-cols-8 grid-rows-8 gap-2 gap-y-2 ">
                             <div
                                 class="bg-white text-[#3ca9e0] text-md font-bold col-span-4 row-span-3 whitespace-normal shadow-xl rounded px-2 pt-2 overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300">
                                 PENDING PROJECTS
@@ -228,7 +228,7 @@ import { usePage } from '@inertiajs/vue3';
                                     </p>
                                 </diV>
                             </div>
-                            <div class="row-span-4 col-span-8 text-white text-xl font-bold pt-3 ">
+                            <div class="row-span-3 col-span-8 text-white text-xl font-bold pt-3 ">
                                 PROJECT PROGRESS
                                 <pie-chart :data="[['To do', 44], ['In progres', 23], ['Done',9]] " :colors="['red', 'orange', 'blue','violet', 'green', 'yellow', 'indigo']" :donut="true"></pie-chart>
                             </div>

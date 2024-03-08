@@ -15,7 +15,7 @@ import moment from 'moment';
 
 // props
 const props = defineProps([
-    "Projects"
+    "Projects", "Items"
 ])  
 
 //useforms 
@@ -132,7 +132,7 @@ const addeditem = () => {
 }
 
 const updateitem = () => {
-    updateform.put(route("projects.update",
+    updateform.put(route("items.update",
     {
         project :updateform.project
     }),{
@@ -184,9 +184,9 @@ const updateitem = () => {
                 </button>
             </div>
 
-            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin]">
+            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin] ml-[10vh] mt-5">
                 <div v-for="(project, index) in Projects.data" :key="index"
-                    class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg">
+                    class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg shadow-lg">
                     <div class="px-2  w-[100%] inline-block">
                         <img class="mt-2 mb-2 w-10 h-10 rounded-full" :src="project.user.profile_photo_url">
                         <div class="font-semibold text-[#ffffff] overflow-hidden ">{{ project.user.name }} </div>
