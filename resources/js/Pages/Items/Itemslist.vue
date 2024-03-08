@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import sidebar from './../components/sidebar.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch, defineProps} from 'vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
@@ -10,40 +10,33 @@ import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import moment from 'moment';
 
-
 // props
 const props = defineProps([
-    "Items", "Projects"
+    "Items"
 ])  
 
-//useforms 
-const form = useForm({
-    name: "",
-    details: "",
-})
 
 const updateform = useForm({
     name:"",
-    details:"",
+    description:"",
     project:{},
 })
 
-const itemform = useForm({
-    name: "",
-    description: "",
-    project_id:"",
-})
-
-//openf
+const search = ref('');
+const perPage =ref(5);
 const deleteModal = ref(false)
-
 const updateModal = ref(false)
-
 const deleteprojid = ref(null)
-
+const selectedProject = ref(null);
 const project_Name = ref({
     'name': '',
     'date': ''
+})
+
+const listperproject = ref({
+    'id':"",
+    'name':"",
+    "items":[]
 })
 
 const addprojectmodal = ref(false)
@@ -62,9 +55,8 @@ const updateproject = (project) => {
 
 
 
-
 const _deleteProject = () => {
-    router.delete(route("Items.delete",{
+    router.delete(route("items.delete",{
         id:deleteprojid.value
     }),{
         onSuccess: () => {
@@ -88,7 +80,7 @@ const converttimedate = (time) => {
 
 
 const updateitem = () => {
-    updateform.put(route("Items.update",
+    updateform.put(route("items.update",
     {
         project :updateform.project
     }),{
@@ -105,6 +97,7 @@ const updateitem = () => {
     })
 }
 
+
 </script>
 
 <template>
@@ -113,23 +106,23 @@ const updateitem = () => {
         </template>
         <sidebar/>
         <div class=" h-[100vmin] " >
-            <div class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex" >
+            <div class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
                 () Sub Projects
             </div>
             <form class=" absolute fixed top-[10vmin] right-[18vh] w-[30vh]  ">   
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only text-white">Search</label>     
                 <div class="relative">
-                    <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
+                    <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none" >
                     <svg class="w-4 h-4 text-gray-500 text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                     </div>
-                <input type="search" id="default-search" class="block w-full p-4  ps-[5vh]  text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
+                <input v-model="search" type="search" id="default-search" class="block w-full p-4  ps-[5vh]  text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
                 <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                 </div>
             </form>
             <div class="absolute fixed top-[10vmin] right-14">
-                <button type="button "
+                <a :href="route('projects.index')"
                     class=" flex flex-wrap text-white bg-[#f39202] hover:bg-gray-950 font-medium rounded-lg text-sm px-7 py-4 text-center inline-flex items-center ">
                     Back
                     <svg class="rtl:rotate-180 w-6 h-6 ms-4" aria-hidden="true" xmlns="https://www.svgrepo.com/show/533620/arrow-sm-left.svg"
@@ -137,12 +130,12 @@ const updateitem = () => {
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M1 5h12m0 0L9 1m4 4L9 9" />
                     </svg>
-                </button>
+                </a>
             </div>
-            <div class="  ml-[25vh] mr-[8vh] mt-5">
+            <div class="  ml-[25vh] mr-[4vh] mt-5" >
                         <div>
                             <table class="w-full ">
-                                    <thead class="text-md uppercase text-white bg-gray-500 shadow-lg  ">
+                                    <thead class="text-md uppercase text-white bg-gray-600 shadow-lg  ">
                                         <tr class="flex justify-start text-left font-bold text-2xl  ">
                                             <th class="py-3 px-4 w-1/6 ">Project Name</th>
                                             <th class="py-3 px-4 w-1/6 ">Owner</th>
@@ -159,7 +152,7 @@ const updateitem = () => {
                                 <template v-for="(project, index) in Items" :key="index" >
                                     <div class="bg-gray-200 border-gray-700 border-b hover:bg-gray-300  flex justify-start items-center  text-2xl">
                                         <div class="w-1/6 py-4 px-6  ">
-                                            <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16">{{ project.name }}</a>
+                                            <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16">{{index + 1 }} . &nbsp;{{ project.name }}</a>
                                         </div>
                                         <div class="w-1/6 py-4 px-4">{{ project.user.name }}</div>
                                         <div class="w-1/6 py-4 px-4 ">daphne</div>
@@ -193,44 +186,41 @@ const updateitem = () => {
 
                     <!-- Delete item -->
                     <ConfirmationModal :show="deleteModal" @close="!deleteModal">
-                <template #title>
-                    Delete File
-                </template>
-                <template #content>
-                    Are you sure you would like to delete {{ project_Name.name }}? <br>
-                    <small>{{ project_Name.date }}</small>
-                </template>
-                <template #footer>
-                    <SecondaryButton @click="deleteModal = false">
-                        Cancel
-                    </SecondaryButton>
-                    <DangerButton class="ms-3" @click="_deleteProject()">
-                        Delete
-                    </DangerButton>
-                </template>
-            </ConfirmationModal>
-            </div>
+                        <template #title>
+                            Delete File
+                        </template>
+                        <template #content>
+                            Are you sure you would like to delete {{ project_Name.name }}? <br>
+                            <small>{{ project_Name.date }}</small>
+                        </template>
+                        <template #footer>
+                            <SecondaryButton @click="deleteModal = false">
+                                Cancel
+                            </SecondaryButton>
+                            <DangerButton class="ms-3" @click="_deleteProject()">
+                                Delete
+                            </DangerButton>
+                        </template>
+                    </ConfirmationModal>
+                    <!--updateproj-->
+                    <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
+                            <template #title>
+                                Update Project
+                            </template>
+                            <template #content>
+                            <Input v-model="updateform.name" type="text" label=" Item Name" />
+                            <Input v-model="updateform.details" type="text" label="Description" />
+                        </template>
+                        <template #footer>
+                            <SecondaryButton @click="updateprojmodal = false">
+                                Cancel
+                            </SecondaryButton>
+                            <DangerButton class="ms-3" @click="updateitem()">
+                                Save
+                            </DangerButton>
+                        </template>
+                    </DialogModal>
+        </div>
     </AppLayout>
-
-
- <!--updateproj-->
- <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
-        <template #title>
-            Update Project
-        </template>
-        <template #content>
-        <Input v-model="updateform.name" type="text" label=" Item Name" />
-        <Input v-model="updateform.details" type="text" label="Description" />
-    </template>
-    <template #footer>
-        <SecondaryButton @click="updateprojmodal = false">
-            Cancel
-        </SecondaryButton>
-        <DangerButton class="ms-3" @click="updateitem()">
-            Save
-        </DangerButton>
-    </template>
-</DialogModal>
-
 </template>
 

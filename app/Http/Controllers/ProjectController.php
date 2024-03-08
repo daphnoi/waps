@@ -13,15 +13,20 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() 
+    public function index(Request $request) 
     {
-        $projects = tap(Project::with("user")->with("items")->paginate(5))->map(function($query){
+        $search = $request ->search??"";
+
+        $projects = tap(Project::when($search, function($query) use($search){
+            $query->where("name","LIKE","%{$search}%")->get();
+        })->with("user")->with("items")->paginate(5))->map(function($query){
             $query->setRelation("items",$query->items->take(10));
             return $query;
         });
         // dd($projects);
         return Inertia::render("Project/Index", [
-            "Projects" => $projects
+            "Projects" => $projects,
+            "search_text" => $search
         ]);
 
         

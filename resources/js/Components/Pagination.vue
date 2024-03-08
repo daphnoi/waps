@@ -48,7 +48,7 @@ async function fetchItems() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center mt-6 text-2xl text-white">
+  <div class="flex flex-col items-center mt-0 text-2xl text-white">
     <div class="flex items-center gap-4">
       <button @click="prevPage" :disabled="currentPage === 1"
         class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center  uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -68,7 +68,7 @@ async function fetchItems() {
           <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">{{ page }}</span>
         </button>
       </div>
-      <button @click="nextPage" :disabled="currentPage === totalPages"
+      <button @click="nextPage"  :disabled="currentPage === totalPages"
         class="flex items-center gap-2 px-6 py-3 font-sans font-bold text-center  uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button">
         Next

@@ -12,10 +12,10 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
 
     {
-            $Items = Item::with("user")->get();
+            $Items = Item::where("project_id",$request->project_id)->with("user")->get();
             return Inertia::render("Items/Itemslist",[
                 "Items" => $Items
             ]);
