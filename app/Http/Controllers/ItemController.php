@@ -71,10 +71,14 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Item $item)
-    {
+    {   
+        $validated = $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:50',
+        ]);
         $item -> update([
             "name" => $request -> name,
-            "details" => $request -> details,
+            "description" => $request -> description,
         ]);
         return back();
     }
@@ -83,7 +87,7 @@ class ItemController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
+    {   
         $item = Item::find($id);
         $item->delete();
 

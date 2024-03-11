@@ -9,6 +9,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import moment from 'moment';
+import InputError from '@/Components/InputError.vue';
 
 // props
 const props = defineProps([
@@ -81,10 +82,10 @@ const converttimedate = (time) => {
 }
 
 
-const updateitem = (project) => {
+const updateitem = () => {
     updateform.put(route("items.update",
     {
-        project :updateform.project
+        item :updateform.project
     }),{
     onSuccess: () => {
         updateprojmodal.value = false
@@ -93,8 +94,6 @@ const updateitem = (project) => {
         },
 
         onError: () => {
-            alert("error")
-
         }
     })
 }
@@ -209,7 +208,9 @@ const searchproj = (search) => {
                             </template>
                             <template #content>
                             <Input v-model="updateform.name" type="text" label=" Item Name" />
-                            <Input v-model="updateform.details" type="text" label="Description" />
+                            <InputError :message="updateform.errors.name" />
+                            <Input v-model="updateform.description" type="text" label="Description" />
+                            <InputError :message="updateform.errors.description" />
                         </template>
                         <template #footer>
                             <SecondaryButton @click="updateprojmodal = false">
