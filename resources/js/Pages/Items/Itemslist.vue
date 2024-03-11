@@ -2,7 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import sidebar from './../components/sidebar.vue';
 import { onMounted, ref, watch, defineProps} from 'vue';
-import { useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage,router } from '@inertiajs/vue3';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
@@ -21,6 +21,7 @@ const updateform = useForm({
     description:"",
     project:{},
 })
+
 
 
 const search = ref('');
@@ -57,7 +58,7 @@ const updateproject = (project) => {
 
 
 const _deleteProject = () => {
-    router.delete(route("project.delete",{
+    router.delete(route("items.delete",{
         id:deleteprojid.value
     }),{
         onSuccess: () => {
@@ -68,7 +69,7 @@ const _deleteProject = () => {
 }
 
 
-const openDeleteModal = () => {
+const openDeleteModal = (projectid) => {
     deleteprojid.value = projectid;
     deleteModal.value = true;
 
@@ -80,7 +81,7 @@ const converttimedate = (time) => {
 }
 
 
-const updateitem = () => {
+const updateitem = (project) => {
     updateform.put(route("items.update",
     {
         project :updateform.project
@@ -98,8 +99,8 @@ const updateitem = () => {
     })
 }
 
-const searchproj = () => {
-    form.get(route("projects.index"))
+const searchproj = (search) => {
+    form.get(route("items.index"))
 }
 
 </script>
@@ -122,7 +123,7 @@ const searchproj = () => {
                     </svg>
                     </div>
                 <input v-model="search" type="search" id="default-search" class="block w-full p-4  ps-[5vh]  text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
-                <button type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                <button  @click="searchproj" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                 </div>
             </form>
             <div class="absolute fixed top-[10vmin] right-14">
@@ -175,12 +176,6 @@ const searchproj = () => {
                                                         </path>
                                                 </svg>
                                         </button>
-                                        <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" ><a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16" >
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" >
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z">
-                                                        </path>
-                                                </svg></a>
-                                        </button>
                                         </div>
                                     </div>
                                 </template>
@@ -206,6 +201,7 @@ const searchproj = () => {
                             </DangerButton>
                         </template>
                     </ConfirmationModal>
+
                     <!--updateproj-->
                     <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
                             <template #title>

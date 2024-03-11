@@ -35,7 +35,11 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {  
+         $validated = $request->validate([
+        'name' => 'required|max:50',
+        'description' => 'required|max:50',
+        ]);
         $Item = Item::create([
             "user_id" => Auth::user() -> id,
             "name" => $request ->name,

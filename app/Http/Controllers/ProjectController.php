@@ -19,7 +19,7 @@ class ProjectController extends Controller
 
         $projects = tap(Project::when($search, function($query) use($search){
             $query
-            ->where("name","LIKE","%{$search}%")
+            ->where("name","like","%{$search}%")
             ->get();
         })
         ->with("user")
@@ -36,7 +36,6 @@ class ProjectController extends Controller
             "search_text" => $search
         ]);
 
-        
     }
     
   
@@ -56,7 +55,11 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        $validated = $request->validate([
+            'name' => 'required|max:50',
+            'details' => 'required|max:50',
+        ]);
         $projects = Project::create([
             "name" => $request ->name,
             "details" => $request -> details,
@@ -87,7 +90,11 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Project $project)
-    {
+    {   
+        $validated = $request->validate([
+        'name' => 'required|max:50',
+        'details' => 'required|max:50',
+         ]);
         $project -> update([
             "name" => $request -> name,
             "details" => $request -> details,

@@ -10,6 +10,7 @@ import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import Pagination from '@/Components/Pagination.vue';
 import moment from 'moment';
+import InputError from '@/Components/InputError.vue';
 
 
 // props
@@ -20,9 +21,8 @@ const props = defineProps([
 
 //useforms 
 const form = useForm({
-    name: "",
-    details: "",
-    search_text:props.search_text
+    name:"",
+    details:"",
 })
 
 const updateform = useForm({
@@ -38,6 +38,7 @@ const itemform = useForm({
 })
 
 //openf
+const   search= ref(props.search_text )
 const deleteModal = ref(false)
 const updateModal = ref(false)
 const deleteprojid = ref(null)
@@ -83,7 +84,6 @@ const createProject = () => {
         },
 
         onError: () => {
-            alert("error")
 
         }
     })
@@ -123,7 +123,6 @@ const addeditem = () => {
         },
 
         onError: () => {
-            alert("error")
 
         }
     })
@@ -141,14 +140,13 @@ const updateitem = () => {
         },
 
         onError: () => {
-            alert("error")
 
         }
     })
 }
 
 const searchproj = () => {
-    form.get(route("projects.index"))
+    router.get(route("projects.index", {search:search.value}))
 }
 
 </script>
@@ -162,7 +160,7 @@ const searchproj = () => {
             <div class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
                 Projects
             </div>
-            <form class=" absolute fixed top-[10vmin] right-[23vh] w-[30vh] ">   
+            <div class=" absolute fixed top-[10vmin] right-[23vh] w-[30vh] ">   
                      
                 <div class="relative">
                      <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
@@ -170,10 +168,10 @@ const searchproj = () => {
                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                     </div>
-                <input v-model="form.search" type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project" required />
-                <button @click="searchproj" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                <input v-model="search" @keydown.enter="searchproj()" type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project" required />
+                <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                 </div>
-            </form>
+            </div>
             <div class="absolute fixed top-[10vmin] right-14 ">
                 <button type="button " @click="addproject()"
                     class=" flex flex-wrap text-white bg-[#f39202]  hover:bg-gray-950  font-medium rounded-lg text-sm px-6 py-4 text-center inline-flex items-center ">
@@ -245,7 +243,7 @@ const searchproj = () => {
             </div>
 
      <!--Pagination--> 
-            <Pagination :data="Projects" />
+            <Pagination :data="Projects" :search="props.search_text "/>
 
        <!--Deleteproject-->
             <ConfirmationModal :show="deleteModal" @close="!deleteModal">
@@ -273,7 +271,9 @@ const searchproj = () => {
                 </template>
                 <template #content>
                     <Input v-model="form.name" type="text" label="Project Name" />
+                    <InputError :message="form.errors.name" />
                     <Input v-model="form.details" type="text" label="Project Details" />
+                    <InputError :message="form.errors.details" />
                 </template>
                 <template #footer>
                     <SecondaryButton @click="addprojectmodal = false">
@@ -294,7 +294,9 @@ const searchproj = () => {
                 </template>
                 <template #content>
                 <Input v-model="itemform.name" type="text" label=" Item Name" />
+                <InputError :message="itemform.errors.name" />
                 <Input v-model="itemform.description" type="text" label="Description" />
+                <InputError :message="itemform.errors.description" />
             </template>
             <template #footer>
                 <SecondaryButton @click="additemModal = false">
@@ -309,11 +311,13 @@ const searchproj = () => {
             <!--updateproj-->
             <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
                 <template #title>
-                    Update File name
+                    Update Project 
                 </template>
                 <template #content>
                 <Input v-model="updateform.name" type="text" label=" Project Name" />
+                <InputError :message="updateform.errors.name" />
                 <Input v-model="updateform.details" type="text" label="Description" />
+                <InputError :message="updateform.errors.description" />
             </template>
             <template #footer>
                 <SecondaryButton @click="updateprojmodal = false">
