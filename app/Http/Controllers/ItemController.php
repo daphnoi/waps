@@ -15,7 +15,7 @@ class ItemController extends Controller
     public function index(Request $request)
 
     {
-            $Items = Item::where("project_id",$request->project_id)->with("user")->get();
+            $Items = Item::where("project_id",$request->project_id)->with("user")->orderBy("created_at","desc")->get();
             return Inertia::render("Items/Itemslist",[
                 "Items" => $Items
             ]);

@@ -41,6 +41,7 @@ Route::middleware([
         Route::post('store/', [ProjectController::class, 'store'])->name('store');
         Route::delete('delete/{id}', [ProjectController::class,'destroy'])->name('delete');
         Route::put('update/{project}', [ProjectController::class,'update'])->name('update');
+        
     });
 
     Route::prefix('items')->name('items.')->group(function () {

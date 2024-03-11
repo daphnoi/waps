@@ -18,8 +18,15 @@ class ProjectController extends Controller
         $search = $request ->search??"";
 
         $projects = tap(Project::when($search, function($query) use($search){
-            $query->where("name","LIKE","%{$search}%")->get();
-        })->with("user")->with("items")->paginate(5))->map(function($query){
+            $query
+            ->where("name","LIKE","%{$search}%")
+            ->get();
+        })
+        ->with("user")
+        ->with("items")
+        ->orderBy("created_at","desc")
+        ->paginate(5))
+        ->map(function($query){
             $query->setRelation("items",$query->items->take(10));
             return $query;
         });
@@ -31,6 +38,10 @@ class ProjectController extends Controller
 
         
     }
+    
+  
+
+
     
 
     /**

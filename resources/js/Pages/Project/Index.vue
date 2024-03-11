@@ -12,7 +12,6 @@ import Pagination from '@/Components/Pagination.vue';
 import moment from 'moment';
 
 
-
 // props
 const props = defineProps([
     "Projects",
@@ -187,7 +186,7 @@ const searchproj = () => {
                 </button>
             </div>
 
-            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin] ml-[10vh] mt-0">
+            <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[20vmin] ml-[20vh] mt-0">
                 <div v-for="(project, index) in Projects.data" :key="index"
                     class="mt-[1vmin] relative  bg-gray-800 size-md min-h-[75vmin] padding-bottom:50px rounded-lg shadow-lg">
                     <div class="px-2  w-[100%] inline-block">
@@ -246,7 +245,7 @@ const searchproj = () => {
             </div>
 
      <!--Pagination--> 
-            <Pagination :data="Projects.data" />
+            <Pagination :data="Projects" />
 
        <!--Deleteproject-->
             <ConfirmationModal :show="deleteModal" @close="!deleteModal">
@@ -310,7 +309,7 @@ const searchproj = () => {
             <!--updateproj-->
             <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
                 <template #title>
-                    Update Project 
+                    Update File name
                 </template>
                 <template #content>
                 <Input v-model="updateform.name" type="text" label=" Project Name" />

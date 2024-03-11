@@ -22,6 +22,7 @@ const updateform = useForm({
     project:{},
 })
 
+
 const search = ref('');
 const perPage =ref(5);
 const deleteModal = ref(false)
@@ -56,7 +57,7 @@ const updateproject = (project) => {
 
 
 const _deleteProject = () => {
-    router.delete(route("items.delete",{
+    router.delete(route("project.delete",{
         id:deleteprojid.value
     }),{
         onSuccess: () => {
@@ -67,7 +68,7 @@ const _deleteProject = () => {
 }
 
 
-const openDeleteModal = (projectid) => {
+const openDeleteModal = () => {
     deleteprojid.value = projectid;
     deleteModal.value = true;
 
@@ -97,6 +98,9 @@ const updateitem = () => {
     })
 }
 
+const searchproj = () => {
+    form.get(route("projects.index"))
+}
 
 </script>
 
@@ -105,9 +109,9 @@ const updateitem = () => {
         <template #header>
         </template>
         <sidebar/>
-        <div class=" h-[100vmin] " >
-            <div class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
-                () Sub Projects
+        <div class=" h-[100vmin] "  >
+            <div  class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
+                Sub Projects 
             </div>
             <form class=" absolute fixed top-[10vmin] right-[18vh] w-[30vh]  ">   
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only text-white">Search</label>     
@@ -205,7 +209,7 @@ const updateitem = () => {
                     <!--updateproj-->
                     <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
                             <template #title>
-                                Update Project
+                                Update file name
                             </template>
                             <template #content>
                             <Input v-model="updateform.name" type="text" label=" Item Name" />
