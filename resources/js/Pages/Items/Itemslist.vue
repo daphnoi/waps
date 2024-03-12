@@ -11,6 +11,7 @@ import Input from '@/Components/Input.vue';
 import moment from 'moment';
 import InputError from '@/Components/InputError.vue';
 
+
 // props
 const props = defineProps([
     "Items"
@@ -156,7 +157,7 @@ const searchproj = (search) => {
                                 <template v-for="(project, index) in Items" :key="index" >
                                     <div class="bg-gray-200 border-gray-700 border-b hover:bg-gray-300  flex justify-start items-center  text-2xl">
                                         <div class="w-1/6 py-4 px-6  ">
-                                            <a href="https://waps.splitsecondsurveys.co.uk/parts/4fpKF/cloud/16">{{index + 1 }} . &nbsp;{{ project.name }}</a>
+                                            <a :href="route('items.item', {item:project})">{{index + 1 }} . &nbsp;{{ project.name }}</a>
                                         </div>
                                         <div class="w-1/6 py-4 px-4">{{ project.user.name }}</div>
                                         <div class="w-1/6 py-4 px-4 ">daphne</div>

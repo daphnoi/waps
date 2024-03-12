@@ -21,6 +21,15 @@ class ItemController extends Controller
             ]);
     
     }
+
+    public function item_index(Request $request, Item $item)
+
+    {
+            return Inertia::render("Items/Item",[
+                "Item" => $item
+            ]);
+    
+    }
     
 
     /**
