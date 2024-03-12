@@ -13,7 +13,7 @@ const props = defineProps(['data','search']);
             :key="k"
             class=" items-center gap-2 px-6 py-3 font-sans font-bold text-center  uppercase  transition-all rounded-full select-none hover:bg-gray-800 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             :class="{'bg-blue-500 text-white': link.active}, {'pointer-events-none disabled  opacity-10 ' : link.url == null}"
-            :href="link.url + '&search=' + search "
+            :href="link.url + '&search=' + search??''"
             v-html="link.label"
         ></a>
 

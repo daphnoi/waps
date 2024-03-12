@@ -195,7 +195,8 @@ const searchproj = () => {
                             {{ project.projectname }}</p>
                         <p class="text-white text-md ">{{ project.date }} </p>
                         <a
-                            class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300 cursor-pointer" :href= "route('items.index',{project_id:project.id})"  >{{ project.name }} </a>
+                            class="font-semibold text-[#ffffff] overflow-hidden uppercase text-3xl break-words text-orange-300 cursor-pointer" :href= "route('items.index',project)"  >
+                            {{ project.name }} </a>
                         <p class="font-semibold text-blue-300 overflow-hidden  text-md break-words "> Created: {{ converttimedate(project.created_at ) }} </p>
                         <p class="font-semibold text-blue-200 overflow-hidden  text-md br ak-words"> Updated: {{ converttimedate(project.updated_at ) }} </p>
                         <p class="font-semibold text-gray-200 overflow-hidden text-md break-words">{{ project.details }}

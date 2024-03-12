@@ -10,23 +10,30 @@ import DialogModal from '@/Components/DialogModal.vue';
 import Input from '@/Components/Input.vue';
 import moment from 'moment';
 import InputError from '@/Components/InputError.vue';
+import Pagination from '@/Components/Pagination.vue';
+
 
 
 // props
 const props = defineProps([
-    "Items"
+    "Items",
+    "search_text",
+    "Project"
 ])  
-
 
 const updateform = useForm({
     name:"",
     description:"",
     project:{},
 })
+const itemform = useForm({
+    name: "",
+    description: "",
+    project_id:props.Project.id
+})
 
 
-
-const search = ref('');
+const  search= ref(props.search_text )
 const perPage =ref(5);
 const deleteModal = ref(false)
 const updateModal = ref(false)
@@ -44,7 +51,7 @@ const listperproject = ref({
 })
 
 const addprojectmodal = ref(false)
-
+const additemModal = ref(false)
 const updateprojmodal = ref(false)
 
 
@@ -53,7 +60,7 @@ const updateprojmodal = ref(false)
 const updateproject = (project) => {
     updateform.project=project
     updateform.name=project.name
-    updateform.details=project.details
+    updateform.description=project.description
     updateprojmodal.value = !updateprojmodal.value
 }
 
@@ -70,6 +77,11 @@ const _deleteProject = () => {
     })
 }
 
+const additem = () => {
+    // itemform.project_id = project_id 
+   // console.log(itemform.project_id)
+    additemModal.value = !additemModal.value
+}
 
 const openDeleteModal = (projectid) => {
     deleteprojid.value = projectid;
@@ -89,7 +101,7 @@ const updateitem = () => {
         item :updateform.project
     }),{
     onSuccess: () => {
-        updateprojmodal.value = false
+        updateprojmodal.value = false 
             updateform.reset()
 
         },
@@ -99,9 +111,21 @@ const updateitem = () => {
     })
 }
 
-const searchproj = (search) => {
-    form.get(route("items.index"))
+const addeditem = () => {
+    itemform.post(route("items.store"), {
+        onSuccess: () => {
+            additemModal.value = false
+            itemform.reset()
+        },
+        onError: () => {
+        }
+    })
 }
+
+const searchproj = () => {
+    router.get(route("items.index", {search:search.value,project:props.Project}))
+}
+
 
 </script>
 
@@ -110,32 +134,29 @@ const searchproj = (search) => {
         <template #header>
         </template>
         <sidebar/>
-        <div class=" h-[100vmin] "  >
+        <div class=" h-[100vmin] "   >
             <div  class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
-                Sub Projects 
+                Sub Projects  
             </div>
-            <form class=" absolute fixed top-[10vmin] right-[18vh] w-[30vh]  ">   
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only text-white">Search</label>     
-                <div class="relative">
-                    <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none" >
-                    <svg class="w-4 h-4 text-gray-500 text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                    </div>
-                <input v-model="search" type="search" id="default-search" class="block w-full p-4  ps-[5vh]  text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project.." required />
-                <button  @click="searchproj" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
-                </div>
-            </form>
+
+            <div class=" absolute fixed top-[10vmin] right-[23vh] w-[30vh] ">   
+                     
+                     <div class="relative">
+                          <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
+                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                         </svg>
+                         </div>
+                     <input v-model="search" @keydown.enter="searchproj()" type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project" required />
+                     <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                     </div>
+                 </div>
             <div class="absolute fixed top-[10vmin] right-14">
-                <a :href="route('projects.index')"
-                    class=" flex flex-wrap text-white bg-[#f39202] hover:bg-gray-950 font-medium rounded-lg text-sm px-7 py-4 text-center inline-flex items-center ">
-                    Back
-                    <svg class="rtl:rotate-180 w-6 h-6 ms-4" aria-hidden="true" xmlns="https://www.svgrepo.com/show/533620/arrow-sm-left.svg"
-                        fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg>
-                </a>
+                <p type="button" @click="additem()"
+                    class=" flex flex-wrap text-white text-3xl bg-[#f39202] hover:bg-gray-950 font-bold rounded-lg text-sm px-16 py-5 text-center inline-flex cursor-pointer">
+                    Add item
+                    
+                </p>
             </div>
             <div class="  ml-[25vh] mr-[4vh] mt-5" >
                         <div>
@@ -153,8 +174,8 @@ const searchproj = (search) => {
                                 </table>
                             </div>
                         <div class="overflow-x-auto inline-fixed">
-                            <div class="w-full  bg-gray-700 max-h-[70vh] overflow-y-auto rounded-lg shadow-lg">
-                                <template v-for="(project, index) in Items" :key="index" >
+                            <div class="w-full  bg-gray-700 max-h-[65vh] overflow-y-auto rounded-lg shadow-lg">
+                                <template v-for="(project, index) in Items.data" :key="index" >
                                     <div class="bg-gray-200 border-gray-700 border-b hover:bg-gray-300  flex justify-start items-center  text-2xl">
                                         <div class="w-1/6 py-4 px-6  ">
                                             <a :href="route('items.item', {item:project})">{{index + 1 }} . &nbsp;{{ project.name }}</a>
@@ -182,7 +203,9 @@ const searchproj = (search) => {
                             </div>
                         </div>
                     </div>
-
+                    <Pagination :data="Items" :search="props.search_text "/>
+        </div>
+        
                     <!-- Delete item -->
                     <ConfirmationModal :show="deleteModal" @close="!deleteModal">
                         <template #title>
@@ -201,6 +224,27 @@ const searchproj = (search) => {
                             </DangerButton>
                         </template>
                     </ConfirmationModal>
+
+                       <!--AddItem-->
+                    <DialogModal :show="additemModal" @close="!additemModal">
+                        <template #title>
+                            Add Sub Project
+                        </template>
+                        <template #content>
+                        <Input v-model="itemform.name" type="text" label=" Item Name" />
+                        <InputError :message="itemform.errors.name" />
+                        <Input v-model="itemform.description" type="text" label="Description" />
+                        <InputError :message="itemform.errors.description" />
+                    </template>
+                    <template #footer>
+                        <SecondaryButton @click="additemModal = false">
+                            Cancel
+                        </SecondaryButton>
+                        <DangerButton class="ms-3" @click="addeditem()">
+                            Save
+                        </DangerButton>
+                    </template>
+                    </DialogModal>
 
                     <!--updateproj-->
                     <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
@@ -222,7 +266,6 @@ const searchproj = (search) => {
                             </DangerButton>
                         </template>
                     </DialogModal>
-        </div>
     </AppLayout>
 </template>
 

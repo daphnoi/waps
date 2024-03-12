@@ -18,6 +18,6 @@ class Project extends Model
     }
     public function items()
     {
-        return $this->hasMany(Item::class)->orderBy("created_at", "desc");
+        return $this->hasMany(Item::class)->orderBy("created_at", "desc")->with('user');
     }
 }
