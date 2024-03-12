@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -12,15 +13,36 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-
-    {
-            $Items = Item::where("project_id",$request->project_id)->with("user")->orderBy("created_at","desc")->get();
-            return Inertia::render("Items/Itemslist",[
-                "Items" => $Items
-            ]);
+    // public function index(Request $request)
+    // {       
+    //         $Items = Item::where("project_id",$request->project_id)->with("user")->orderBy("created_at","desc")->get();
+    //         return Inertia::render("Items/Itemslist",[
+    //             "Items" => $Items
+    //         ]);
     
+    // }
+    public function index(Project $project, Request $request)
+    {
+        // dd($project->items()->get());
+        $search = $request->search ?? '';
+        
+        $Items = $project->items()
+            ->when($search, function($query) use($search){
+            $query
+            ->where("name","like","%{$search}%")
+            ->get();
+        })->with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+            // dd($Items);
+        return Inertia::render("Items/Itemslist", [
+            "Items" => $Items,
+            "search_text" => $search,
+            "Project" => $project
+        ]);
     }
+
     
 
     /**
@@ -36,11 +58,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {  
-         $validated = $request->validate([
+        // dd($request);
+        $validated = $request->validate([
         'name' => 'required|max:50',
         'description' => 'required|max:50',
+        // 'project_id' => 'required|exists:projects,id',
         ]);
-        $Item = Item::create([
+        $Items = Item::create([
             "user_id" => Auth::user() -> id,
             "name" => $request ->name,
             "description" => $request -> description,
