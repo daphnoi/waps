@@ -179,6 +179,7 @@ const searchproj = () => {
                                     <div class="bg-gray-200 border-gray-700 border-b hover:bg-gray-300  flex justify-start items-center  text-2xl">
                                         <div class="w-1/6 py-4 px-6  ">
                                             <a :href="route('items.item', {item:project})">{{index + 1 }} . &nbsp;{{ project.name }}</a>
+                                            <!-- <a >{{index + 1 }} . &nbsp;{{ project.name }}</a> -->
                                         </div>
                                         <div class="w-1/6 py-4 px-4">{{ project.user.name }}</div>
                                         <div class="w-1/6 py-4 px-4 ">daphne</div>

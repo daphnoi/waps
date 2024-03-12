@@ -45,7 +45,7 @@ Route::middleware([
     });
 
     Route::prefix('items')->name('items.')->group(function () {
-        Route::get('/{item}', [ItemController::class, 'item_index'])->name('item');
+        Route::get('/item/{item}', [ItemController::class, 'item_index'])->name('item');
         Route::get('/{project}', [ItemController::class, 'index'])->name('index');
         Route::post('store/', [ItemController::class, 'store'])->name('store');
         Route::delete('delete/{id}', [ItemController::class,'destroy'])->name('delete');
