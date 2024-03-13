@@ -70,7 +70,7 @@ import { usePage } from '@inertiajs/vue3';
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
+                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> 
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
@@ -228,10 +228,10 @@ import { usePage } from '@inertiajs/vue3';
                                     </p>
                                 </diV>
                             </div>
-                            <div class="row-span-3 col-span-8 text-white text-xl font-bold pt-3 ">
+                            <!-- <div class="row-span-3 col-span-8 text-white text-xl font-bold pt-3 ">
                                 PROJECT PROGRESS
                                 <pie-chart :data="[['To do', 44], ['In progres', 23], ['Done',9]] " :colors="['red', 'orange', 'blue','violet', 'green', 'yellow', 'indigo']" :donut="true"></pie-chart>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

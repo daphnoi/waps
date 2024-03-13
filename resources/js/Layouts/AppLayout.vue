@@ -41,7 +41,7 @@ const logout = () => {
     <div>
         <Head :title="title" />
         <Banner />
-        <div class=" fixed w-full bg-blue-900 z-10 bg-fixed ">
+        <div class=" fixed w-full h-full bg-blue-900 z-10 bg-fixed ">
             <nav class="bg-white border-b border-blue-100 shadow-xl">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +126,7 @@ const logout = () => {
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos"
                                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover"
+                                            <img class="h-10 w-10 rounded-full object-cover border-2 hover:border-gray-500"
                                                 :src="$page.props.auth.user.profile_photo_url"
                                                 :alt="$page.props.auth.user.name">
                                         </button>
