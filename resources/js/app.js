@@ -2,9 +2,11 @@ import './bootstrap';
 import '../css/app.css';
 
 import { createApp, h } from 'vue';
+import Notifications from '@kyvg/vue3-notification'
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import Vue3Toastify from 'vue3-toastify';
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
 
@@ -19,7 +21,10 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(VueChartkick)
+            .use(Notifications)
+            .use (Vue3Toastify,{ autoClose: 3000 })
             .mount(el);
+
     },
     progress: {
         color: '#4B5563',

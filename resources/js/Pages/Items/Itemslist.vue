@@ -11,7 +11,8 @@ import Input from '@/Components/Input.vue';
 import moment from 'moment';
 import InputError from '@/Components/InputError.vue';
 import Pagination from '@/Components/Pagination.vue';
-
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 
 // props
@@ -71,6 +72,9 @@ const _deleteProject = () => {
         id:deleteprojid.value
     }),{
         onSuccess: () => {
+            toast.success("Item deleted!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            });
             deleteModal.value = false
             deleteprojid.value = null
         }
@@ -101,12 +105,17 @@ const updateitem = () => {
         item :updateform.project
     }),{
     onSuccess: () => {
+        toast.success("Item successfully updated!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            });
         updateprojmodal.value = false 
             updateform.reset()
 
         },
-
         onError: () => {
+            toast.error("Please input required fields !", {
+            position: toast.POSITION.TOP_CENTER,
+        });
         }
     })
 }
@@ -114,10 +123,16 @@ const updateitem = () => {
 const addeditem = () => {
     itemform.post(route("items.store"), {
         onSuccess: () => {
+            toast.success("Item successfully added!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            });
             additemModal.value = false
             itemform.reset()
         },
         onError: () => {
+            toast.error("Please input required fields !", {
+            position: toast.POSITION.TOP_CENTER,
+        });
         }
     })
 }
@@ -135,11 +150,11 @@ const searchproj = () => {
         </template>
         <sidebar/>
         <div class=" h-[100vmin] "   >
-            <div  class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-4xl font-semibold text-white flex inline-flex uppercase" >
+            <div  class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-5xl font-semibold text-white flex inline-flex uppercase" >
                 Sub Projects  
             </div>
 
-            <div class=" absolute fixed top-[10vmin] right-[23vh] w-[30vh] ">   
+            <div class=" absolute fixed top-[10.5vmin] right-[12vh] w-[30vh] ">   
                      
                      <div class="relative">
                           <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
@@ -151,12 +166,8 @@ const searchproj = () => {
                      <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                      </div>
                  </div>
-            <div class="absolute fixed top-[10vmin] right-14">
-                <p type="button" @click="additem()"
-                    class=" flex flex-wrap text-white text-3xl bg-[#f39202] hover:bg-gray-950 font-bold rounded-lg text-sm px-16 py-5 text-center inline-flex cursor-pointer">
-                    Add item
-                    
-                </p>
+            <div class="absolute fixed top-[7vmin] right-[2vh]  flex flex-wrap text-white  inline-flex cursor-pointer transition ease-in-out delay-50 hover:scale-[130%] duration-300" type="button" @click="additem()">
+                    <svg width="80" height="80" viewBox="0 0 512 512" style="color:#fff0f0" xmlns="http://www.w3.org/2000/svg" class="h-full w-full"><rect width="512" height="512" x="0" y="0" rx="30" fill="transparent" stroke="transparent" stroke-width="0" stroke-opacity="100%" paint-order="stroke"></rect><svg width="256px" height="256px" viewBox="0 0 24 24" fill="#fff0f0" x="128" y="128" role="img" style="display:inline-block;vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><g fill="#fff0f0"><path fill="currentColor" fill-rule="evenodd" d="M7.345 4.017a42.253 42.253 0 0 1 9.31 0c1.713.192 3.095 1.541 3.296 3.26a40.66 40.66 0 0 1 0 9.445a3.734 3.734 0 0 1-3.296 3.26a42.123 42.123 0 0 1-9.31 0a3.734 3.734 0 0 1-3.296-3.26a40.652 40.652 0 0 1 0-9.444a3.734 3.734 0 0 1 3.295-3.26ZM12 7.007a.75.75 0 0 1 .75.75v3.493h3.493a.75.75 0 1 1 0 1.5H12.75v3.493a.75.75 0 0 1-1.5 0V12.75H7.757a.75.75 0 0 1 0-1.5h3.493V7.757a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"/></g></svg></svg>
             </div>
             <div class="  ml-[25vh] mr-[4vh] mt-5" >
                         <div>
@@ -164,8 +175,8 @@ const searchproj = () => {
                                     <thead class="text-md uppercase text-white bg-gray-600 shadow-lg  ">
                                         <tr class="flex justify-start text-left font-bold text-2xl  ">
                                             <th class="py-3 px-4 w-1/6 ">Project Name</th>
-                                            <th class="py-3 px-4 w-1/6 ">Owner</th>
-                                            <th class="py-3 px-4 w-1/6 ">Updated By</th>
+                                            <th class="py-3 px-1 w-1/6 ">Owner</th>
+                                            <th class="py-3 px-1 w-1/6 ">Updated By</th>
                                             <th class="py-3 px-3 w-1/6 ">Created at</th>
                                             <th class="py-3 px-5 w-1/6 ">Updated At</th>
                                             <th class="py-3 px-[10vh] w-1/6 mr-[-20vh] ">Action</th>
@@ -174,12 +185,11 @@ const searchproj = () => {
                                 </table>
                             </div>
                         <div class="overflow-x-auto inline-fixed">
-                            <div class="w-full  bg-gray-700 max-h-[65vh] overflow-y-auto rounded-lg shadow-lg">
+                            <div class="w-full  bg-gray-700 max-h-[68vh] overflow-y-auto rounded-lg shadow-lg">
                                 <template v-for="(project, index) in Items.data" :key="index" >
                                     <div class="bg-gray-200 border-gray-700 border-b hover:bg-gray-300  flex justify-start items-center  text-2xl">
                                         <div class="w-1/6 py-4 px-6  ">
                                             <a :href="route('items.item', {item:project})">{{index + 1 }} . &nbsp;{{ project.name }}</a>
-                                            <!-- <a >{{index + 1 }} . &nbsp;{{ project.name }}</a> -->
                                         </div>
                                         <div class="w-1/6 py-4 px-4">{{ project.user.name }}</div>
                                         <div class="w-1/6 py-4 px-4 ">daphne</div>
@@ -204,17 +214,16 @@ const searchproj = () => {
                             </div>
                         </div>
                     </div>
-                    <Pagination :data="Items" :search="props.search_text "/>
+            <Pagination :data="Items" :search="props.search_text "/>
         </div>
         
                     <!-- Delete item -->
-                    <ConfirmationModal :show="deleteModal" @close="!deleteModal">
+                    <ConfirmationModal :show="deleteModal" @close="!deleteModal" >
                         <template #title>
-                            Delete File
+                            Delete Item
                         </template>
-                        <template #content>
-                            Are you sure you would like to delete {{ project_Name.name }}? <br>
-                            <small>{{ project_Name.date }}</small>
+                        <template #content >
+                            Are you sure you would like to delete this item? <br>
                         </template>
                         <template #footer>
                             <SecondaryButton @click="deleteModal = false">
@@ -229,7 +238,7 @@ const searchproj = () => {
                        <!--AddItem-->
                     <DialogModal :show="additemModal" @close="!additemModal">
                         <template #title>
-                            Add Sub Project
+                            Add item
                         </template>
                         <template #content>
                         <Input v-model="itemform.name" type="text" label=" Item Name" />
@@ -250,7 +259,7 @@ const searchproj = () => {
                     <!--updateproj-->
                     <DialogModal :show="updateprojmodal" @close="!updateprojmodal">
                             <template #title>
-                                Update file name
+                                Update item
                             </template>
                             <template #content>
                             <Input v-model="updateform.name" type="text" label=" Item Name" />
