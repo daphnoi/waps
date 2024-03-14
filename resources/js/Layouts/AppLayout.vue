@@ -42,7 +42,7 @@ const logout = () => {
         <Head :title="title" />
         <Banner />
         <div class=" fixed w-full h-full bg-blue-900 z-10 bg-fixed ">
-            <nav class="bg-white border-b border-blue-100 shadow-xl">
+            <nav class="bg-white  shadow-xl">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">

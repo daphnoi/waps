@@ -14,8 +14,6 @@ import InputError from '@/Components/InputError.vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
-
-
 // props
 const props = defineProps([
     "Projects",
@@ -92,7 +90,7 @@ const createProject = () => {
 
         onError: () => {
             toast.error("Please input required fields !", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_RIGHT,
         });
         }
     })
@@ -139,7 +137,7 @@ const addeditem = () => {
 
         onError: () => {
             toast.error("Please input required fields !", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_RIGHT,
         });
         }
     })
@@ -160,7 +158,7 @@ const updateitem = () => {
         },
         onError: () => {
             toast.error("Please input required fields !", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_RIGHT,
         });
 
         }
@@ -183,7 +181,7 @@ const searchproj = () => {
             <div class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-5xl font-semibold text-white flex inline-flex uppercase" >
                 Projects
             </div>
-            <div class=" absolute fixed top-[10.2vmin] right-[12vh] w-[30vh] ">   
+            <div class=" absolute fixed top-[10.2vmin] right-[13vh] w-[30vh] ">   
                 <div class="relative">
                      <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -194,10 +192,13 @@ const searchproj = () => {
                 <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                 </div>
             </div>
-            <div class="absolute fixed top-[9vmin] right-14 transition ease-in-out delay-50 hover:scale-[130%] duration-300" >
-                <button type="button " @click="addproject()" class=" inline-flex items-center">
+            <div class=" fixed top-[9vmin] right-14 transition ease-in-out delay-50 hover:scale-[130%] duration-300 " >
+                <button  type="button " @click="addproject()" class=" inline-flex items-center">
                     <svg width="50" height="50" viewBox="0 0 512 512" style="color:#fff0f0" xmlns="http://www.w3.org/2000/svg" class="h-full w-full"><rect width="512" height="512" x="0" y="0" rx="30" fill="transparent" stroke="transparent" stroke-width="0" stroke-opacity="100%" paint-order="stroke"></rect><svg width="256px" height="256px" viewBox="0 0 16 16" fill="#fff0f0" x="128" y="128" role="img" style="display:inline-block;vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><g fill="#fff0f0"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M1.75 1.75h4.5v4.5h-4.5zm0 8h4.5v4.5h-4.5zm8 0h4.5v4.5h-4.5zm5.05-6h-5m2.5-2.5v5"/></g></svg></svg>
                 </button>
+                <!-- <div class="z-40 hidden group-hover:block mt-[-10vh] w-45 py-1 px-1 bg-gray-600 rounded-lg  shadow-lg text-center">
+                    <p class="block text-white font-extrabold ">Add Project</p>
+                </div> -->
             </div>
 
             <div class="grid grid-rows-1 grid-cols-5 gap-5 px-[10vmin] ml-[20vh] mt-0 ">
@@ -219,13 +220,13 @@ const searchproj = () => {
                         </p>
                         <hr class="h-px my-8 bg-slate-200 border-0 bg-gray-700 flex bg-fixed">
                         <div>
-                            <p class="text-2xl mb-2  font-md text-gray-200 overflow-hidden text-center uppercase  font-bold">Sub Projects</p> 
-                                <p  class="text-white pt-2 text-xl mt-2 transition border-gray-600 hover:bg-gray-500 ease-in-out delay-150  duration-150 cursor-pointer"  v-for="(item, key) in project.items" :key="key" >{{key + 1 }} . &nbsp;{{item.name}}</p>
+                            <p class="text-2xl mb-2  font-md text-gray-200 overflow-hidden text-center uppercase  font-bold" >Sub Projects</p> 
+                                <p  class="text-white pt-2 text-xl mt-2 transition border-gray-600 hover:bg-gray-500 ease-in-out delay-150  duration-150 cursor-pointer" v-for="(item, key) in project.items" :key="key" >{{key + 1 }} . &nbsp;{{item.name}}</p>
                         </div>
-                        <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg " >
+                        <div class="absolute bottom-4 left-[50%] translate-x-[-50%] rounded-lg ">
                             <button
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text- px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button" @click="additem(project.id)" @keydown.enter="additem()">
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button" @click="additem(project.id)" >
                                 Add Item
                             </button>
 

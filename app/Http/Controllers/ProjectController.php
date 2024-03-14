@@ -38,10 +38,6 @@ class ProjectController extends Controller
 
     }
     
-  
-
-
-    
 
     /**
      * Show the form for creating a new resource.
@@ -72,8 +68,23 @@ class ProjectController extends Controller
      * Display the specified resource.
      */
     public function show(Project $project)
-    {
-        //
+    {   
+
+        $projects = tap(Project::
+        with("user")
+        ->with("items")
+        ->orderBy("created_at","desc")
+        ->get())
+        ->map(function($query){
+            $query->setRelation("items",$query->items->take(10));
+            return $query;
+        });
+        // dd($projects);
+        return Inertia::render("Dashboard", [
+            "Projects" => $projects,
+
+        ]);
+
     }
 
 

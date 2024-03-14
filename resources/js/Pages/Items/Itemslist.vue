@@ -106,7 +106,7 @@ const updateitem = () => {
     }),{
     onSuccess: () => {
         toast.success("Item successfully updated!", {
-            position: toast.POSITION.BOTTOM_RIGHT,
+        position: toast.POSITION.BOTTOM_RIGHT,
             });
         updateprojmodal.value = false 
             updateform.reset()
@@ -114,7 +114,7 @@ const updateitem = () => {
         },
         onError: () => {
             toast.error("Please input required fields !", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_RIGHT,
         });
         }
     })
@@ -131,7 +131,7 @@ const addeditem = () => {
         },
         onError: () => {
             toast.error("Please input required fields !", {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.BOTTOM_RIGHT,
         });
         }
     })
@@ -150,12 +150,11 @@ const searchproj = () => {
         </template>
         <sidebar/>
         <div class=" h-[100vmin] "   >
-            <div  class=" mx-auto py-11 sm:px-9 ml-[22vh]  font-sans text-5xl font-semibold text-white flex inline-flex uppercase" >
-                Sub Projects  
+            <div  class=" mx-auto py-11 sm:px-9 ml-[22vh] text-5xl font-semibold text-white flex inline-flex uppercase" >
+                sub project
             </div>
 
-            <div class=" absolute fixed top-[10.5vmin] right-[12vh] w-[30vh] ">   
-                     
+            <div class=" absolute fixed top-[10.9vmin] right-[13vh] w-[30vh] ">   
                      <div class="relative">
                           <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
                          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -166,10 +165,10 @@ const searchproj = () => {
                      <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                      </div>
                  </div>
-            <div class="absolute fixed top-[7vmin] right-[2vh]  flex flex-wrap text-white  inline-flex cursor-pointer transition ease-in-out delay-50 hover:scale-[130%] duration-300" type="button" @click="additem()">
+            <div class="absolute fixed top-[7vmin] right-[2vh] text-white  inline-flex cursor-pointer transition ease-in-out delay-50 hover:scale-[130%] duration-300" type="button" @click="additem()">
                     <svg width="80" height="80" viewBox="0 0 512 512" style="color:#fff0f0" xmlns="http://www.w3.org/2000/svg" class="h-full w-full"><rect width="512" height="512" x="0" y="0" rx="30" fill="transparent" stroke="transparent" stroke-width="0" stroke-opacity="100%" paint-order="stroke"></rect><svg width="256px" height="256px" viewBox="0 0 24 24" fill="#fff0f0" x="128" y="128" role="img" style="display:inline-block;vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><g fill="#fff0f0"><path fill="currentColor" fill-rule="evenodd" d="M7.345 4.017a42.253 42.253 0 0 1 9.31 0c1.713.192 3.095 1.541 3.296 3.26a40.66 40.66 0 0 1 0 9.445a3.734 3.734 0 0 1-3.296 3.26a42.123 42.123 0 0 1-9.31 0a3.734 3.734 0 0 1-3.296-3.26a40.652 40.652 0 0 1 0-9.444a3.734 3.734 0 0 1 3.295-3.26ZM12 7.007a.75.75 0 0 1 .75.75v3.493h3.493a.75.75 0 1 1 0 1.5H12.75v3.493a.75.75 0 0 1-1.5 0V12.75H7.757a.75.75 0 0 1 0-1.5h3.493V7.757a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"/></g></svg></svg>
             </div>
-            <div class="  ml-[25vh] mr-[4vh] mt-5" >
+            <div class="  ml-[28vh] mr-[4vh] mt-5" >
                         <div>
                             <table class="w-full ">
                                     <thead class="text-md uppercase text-white bg-gray-600 shadow-lg  ">
