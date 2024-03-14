@@ -15,21 +15,19 @@ import InputError from '@/Components/InputError.vue';
 
 const props = defineProps([
     "Item"
-])  
+]) 
 
 
 </script>
 
 <template>
-    <AppLayout title="Generate Itme">
+    <AppLayout title="Generate Iteme">
             <sidebar/>
             <div class=" h-[100vmin] ">
                 <div> 
-                    <div class="md:flex bg-gray-300 shadow-lg p-2 mr-full h-[8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         vmin]">
-                    <div class="w-[10%] mb-2 lg:mb-0 lg:w-[10%]  overflow-auto"> 
-                </div>
-                <div class="ml-[15vmin]"></div>
-                <div class="relative inline-block text-left mt-6 ml-[6vmax]">
+                    <div class="md:flex bg-gray-900 shadow-lg p-2 mr-full h-[8vmin]">
+                        <a class="text-[#ffffff] font-bold ml-[28vmin] mt-2 font-xl">Controllers</a>
+                        <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Theme
@@ -48,7 +46,7 @@ const props = defineProps([
                             </div>                                        
                         </div> --> 
                     </div>
-                    <div class="relative inline-block text-left mt-6 ml-[8vmax]">
+                    <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Shape
@@ -67,7 +65,7 @@ const props = defineProps([
                             </div>
                         </div>  -->
                     </div>
-                    <div class="relative inline-block text-left mt-6 ml-[4vmax]">
+                    <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Background color
@@ -86,7 +84,7 @@ const props = defineProps([
                             </div>
                         </div> -->
                     </div>
-                    <div class="relative inline-block text-left mt-6 ml-[6.5vmax]">
+                    <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Font Style
@@ -105,7 +103,7 @@ const props = defineProps([
                             </div> -->
                         </div>
                     </div>
-                    <div class="relative inline-block text-left mt-6 ml-[7vmax]">
+                    <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Rotation
@@ -124,7 +122,7 @@ const props = defineProps([
                             </div>
                         </div> -->
                     </div>
-                    <div class="relative inline-block text-left mt-6 ml-[17vmin]">
+                    <div class="relative inline-block text-left mt-6 ml-[1.8vmin]">
                         <div>
                             <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
                                 Sort
@@ -143,18 +141,95 @@ const props = defineProps([
                             </div>
                         </div> -->
                     </div>
+                    <div class="relative inline-block text-left mt-6 ml-[1.8vmin]">
+                        <div>
+                            <button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                                Mode
+                                <img class="w-5 h-5" src="https://www.svgrepo.com/show/107244/web-crawler.svg">
+                            </button>
+                        </div>
                 </div>
                 </div>
-                <div class="mx-auto ml-[30vmin] grid grid-cols-2 grid-rows-2" >
-                    <div class="md:flex bg-white rounded-lg shadow-lg p-2 mt-10  mr-[3vmin] gap-2 h-[100vmin] ">
-                    <div class="w-[100%] mb-2 lg:mb-0 lg:w-[100%]  overflow-auto grid grid-cols-2 grid-rows-">                                                                   
+                <div class=" ml-[30vmin] grid">
+                    <div class="md:flex bg-gray-900 rounded-lg shadow-lg p-2 mt-10 mr-[3vmin] gap-2  overflow-y-scroll h-[80vh]">
+                    <div class="w-[100%] mb-2 lg:mb-0 lg:w-[100%] ">
+                        <div class="container mx-auto bg-gray-200 h-[50vmin] rounded-md ">
+                            <div class="container bg-gray-350 shadow-lg h-[7vmin] inline-block">
+                                <p class=" ml-5 font-bold text-xl pt-4 inline-block" >Text Editor</p>
+                                <button type="button" class=" ml-[51vmin] -mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Upload Text File</button>
+                            </div>
+                            <button type="button" class="mt-[38.3vmin] ml-[67.9vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Analayse</button>
+                        </div>
+                        <div class="mt-[2vmin] container mx-auto bg-gray-200 h-[48vmin] rounded-md">
+                            <div class="container bg-gray-350 shadow-lg h-[7vmin] rounded">
+                                <p class="ml-5 font-bold text-xl pt-4">Words Extracted</p>
+                                <button type="button" class="mt-[39vmin] ml-[63.3vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Download (img)</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="w-[100%] mb-2 lg:mb-0 lg:w-[100%]  overflow-auto grid grid-cols-2 grid-rows-">
-                    <div class="gap-8 column-2 mx-auto bg-gray-900">
-                </div>
+                    <div class="container mx-auto bg-gray-200 h-[100vmin] rounded-md">
+                        <div class="container relative bg-blue-350 shadow-lg h-[7vmin] inline-block">
+                            <p class=" ml-[2vmin] mt-6 font-bold text-2xl" >Analysis</p>
+                            <img class="w-[20%] h-10 ml-[6.3vmin] -mt-11" src="https://www.svgrepo.com/show/345315/graph-chart-data-analytics-statistic-report-analysis.svg">
+                        <button type="button" class="flex mt-[90vmin] ml-[63.8vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Download CSV</button>
+                        </div>
+                        
+                        <div class="relative ml-5 mr-5 -mt-[89vmin]">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ml-5 mr-5 text-center">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            CLOUD ID
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            WORDS
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            REAPETING COUNT
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
+                                            0
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Apple MacBook Pro 17"
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            10
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            1
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Microsoft Surface Pro
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            8
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white dark:bg-gray-800 text-center">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            2
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Magic Mouse 2
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            5
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
+        </div>
 </AppLayout> 
 </template>                 
