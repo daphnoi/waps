@@ -24,7 +24,7 @@ class ProjectController extends Controller
         })
         ->with("user")
         ->with("items")
-        ->orderBy("created_at","desc")
+        ->orderBy("updated_at","desc")
         ->paginate(5))
         ->map(function($query){
             $query->setRelation("items",$query->items->take(10));
@@ -70,16 +70,13 @@ class ProjectController extends Controller
     public function show(Project $project)
     {   
 
-        $projects = tap(Project::
-        with("user")
+        $projects = Project::with("user")
         ->with("items")
-        ->orderBy("created_at","desc")
-        ->get())
-        ->map(function($query){
-            $query->setRelation("items",$query->items->take(10));
-            return $query;
-        });
-        // dd($projects);
+        ->orderBy("updated_at","desc")
+        ->get();
+
+
+        // dd($projectscount);
         return Inertia::render("Dashboard", [
             "Projects" => $projects,
 
@@ -109,6 +106,7 @@ class ProjectController extends Controller
         $project -> update([
             "name" => $request -> name,
             "details" => $request -> details,
+            
         ]);
         return back();
     }
