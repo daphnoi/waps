@@ -8,6 +8,7 @@ import moment from 'moment';
 
 const props = defineProps([
     "Projects",
+    "newproj"
 ])
 const converttimedate = (time) => {
     return moment(time).format('MMMM Do YYYY, h:mm:ss a');
@@ -70,13 +71,7 @@ const converttimedate = (time) => {
                                 <svg width="256" height="256" viewBox="0 0 16 16" fill="#1e3a89" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 inline-block "><rect width="16" height="16" x="0" y="0" rx="2" fill="transparent"></rect>
                                     <path fill="none" stroke="#1e3a89" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M1.75 2.75H10v11.5H1.75zm8.25 1l4.25 2l-4.25 7.5"/></svg>
                                 <p class="inline-block text-[#1e3a89] font-extrabold text-1xl ml-2 mt-4" >new PROJECTS </p>
-                                <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0 text-center overflow-hidden">19</p>
-                            </div>
-                            <div class="bg-white text-[#3ca9e0] text-md font-bold col-span-4 row-span-3 whitespace-normal shadow-xl rounded overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300 ps-4">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#1e3a89" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 inline-block">
-                                    <path  d="m21.704 5.29l-2.997-2.997A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.296 5.29A.994.994 0 0 0 2 5.999V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5.999a.994.994 0 0 0-.296-.709zM6.414 4h11.172l1 1H5.414l1-1zM17 13v1H7v-4h2v2h6v-2h2v3z"/></svg>
-                                <p class="inline-block text-[#1e3a89] font-extrabold text-1xl ml-2 mt-4 uppercase" >Recent updated items </p>
-                                <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0 text-center overflow-hidden">30</p>
+                                <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0 text-center overflow-hidden">{{ props.newproj.length }}</p>
                             </div>
                             <div  class="bg-white text-[#3ca9e0] text-md font-bold col-span-4 row-span-3 whitespace-normal shadow-xl rounded overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300 ps-4">
                                 <svg viewBox="0 0 24 24" fill="#1e3a89" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 inline-block">
@@ -84,18 +79,13 @@ const converttimedate = (time) => {
                                 <p class="inline-block text-[#1e3a89] font-extrabold text-1xl  ml-2 mt-4  uppercase" >total project</p>
                                 <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0  text-center overflow-hidden">{{ props.Projects.length }}</p>
                             </div>
-                            <div  class="bg-white text-[#3ca9e0] text-md font-bold col-span-4 row-span-3 whitespace-normal shadow-xl rounded overflow-hidden transition ease-in-out delay-150 hover:scale-[104%] duration-300 ps-4">
-                                <svg width="256px" height="256px" viewBox="0 0 24 24" fill="#1e3a89" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 inline-block">
-                                    <path  d="M18.75 3H5.25A2.25 2.25 0 0 0 3 5.25v13.5A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V5.25A2.25 2.25 0 0 0 18.75 3zm-7.92 13.635a1.08 1.08 0 0 1-1.08 1.08H6.42a1.08 1.08 0 0 1-1.08-1.08V6.42c0-.597.483-1.08 1.08-1.08h3.33c.596 0 1.08.483 1.08 1.08v10.215zm7.83-4.5a1.08 1.08 0 0 1-1.08 1.08h-3.33a1.08 1.08 0 0 1-1.08-1.08V6.42c0-.597.484-1.08 1.08-1.08h3.33c.597 0 1.08.483 1.08 1.08v5.715z"/></svg>
-                                <p class="inline-block text-[#1e3a89] font-extrabold text-1xl ml-2 mt-4 uppercase" >total files exported</p>
-                                <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0 text-center overflow-hidden">12</p>
-                            </div>
+                           
                             <div class="row-span-3 col-span-8 text-gray-400 text-center text-3xl font-bold pt-3 uppercase">
                                 PROJECTs total item
                                     <bar-chart  :data="[
-                                      ['project 1',props.Projects.length ],
+                                      ['project 1',2],
                                       ['project 2',23],
-                                      ['project 3',props.Projects.length],
+                                      ['project 3',3],
                                       ['project 4', 10],
                                       ['project 5', 18]] " 
                                       :colors="[ '#365486', '#7FC7D9', '#008DDA','#41C9E2', '#ACE2E1','#081f5c','#334eac','#7096d1','#001260']"  :donut="true" class="chart-style" ></bar-chart>  

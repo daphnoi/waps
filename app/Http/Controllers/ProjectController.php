@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -75,14 +76,19 @@ class ProjectController extends Controller
         ->orderBy("updated_at","desc")
         ->get();
 
-
-        // dd($projectscount);
+        $from = date("Y-m-d",strtotime('-1 Week'));
+        $to = date("Y-m-d");
+        $totalproj = Project::whereBetween('created_at', [$from, $to])->orderBy("created_at","desc")->get();
+    
         return Inertia::render("Dashboard", [
             "Projects" => $projects,
+            "newproj" => $totalproj
 
         ]);
 
     }
+
+    
 
 
     /**
