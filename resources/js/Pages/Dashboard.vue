@@ -90,9 +90,15 @@ const converttimedate = (time) => {
                                 <p class="inline-block text-[#1e3a89] font-extrabold text-1xl ml-2 mt-4 uppercase" >total files exported</p>
                                 <p class="font-sans text-8xl text-gray-600 col-span-4 whitespace-normal mt-0 text-center overflow-hidden">12</p>
                             </div>
-                            <div class="row-span-3 col-span-8 text-white text-center text-3xl font-bold pt-3 uppercase">
+                            <div class="row-span-3 col-span-8 text-gray-400 text-center text-3xl font-bold pt-3 uppercase">
                                 PROJECTs total item
-                                    <pie-chart :data="[['Recent ', 44], ['Imported files', 23], ['Total',props.Projects.length]] " :colors="[ 'orange', 'red', 'blue' ]"  :donut="true" class="chart-style" ></pie-chart>
+                                    <bar-chart  :data="[
+                                      ['project 1',props.Projects.length ],
+                                      ['project 2',23],
+                                      ['project 3',props.Projects.length],
+                                      ['project 4', 10],
+                                      ['project 5', 18]] " 
+                                      :colors="[ '#365486', '#7FC7D9', '#008DDA','#41C9E2', '#ACE2E1','#081f5c','#334eac','#7096d1','#001260']"  :donut="true" class="chart-style" ></bar-chart>  
                             </div>
                         </div>
                     </div>
