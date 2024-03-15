@@ -24,6 +24,7 @@ createInertiaApp({
             .use(Notifications)
             .use (Vue3Toastify,{ autoClose: 3000 })
             .mount(el);
+        
 
     },
     progress: {

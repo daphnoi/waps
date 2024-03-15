@@ -11,6 +11,8 @@ import Input from '@/Components/Input.vue';
 import moment from 'moment';
 import InputError from '@/Components/InputError.vue';
 import Dropdown from '@/Components/Dropdown.vue';
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 
 
@@ -43,11 +45,11 @@ const props = defineProps([
                     </div>
                     <div class="relative inline-block text-left mt-6 ml-[1vmax]">
                             <div class="group inline-block  text-left -mt-1 -ml-[1vmin]">
-                        <button class=" inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <button class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                         <span>Shape</span>
                         <svg class="fill-current h-4 w-4 ml-2 transition duration-300 transform group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7l-5 5 5 5V7z"/></svg>
                         </button>
-                        <div class="absolute z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div class="absolute  overflow-y-scroll h-[25vmin] z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Choose a Shape</a>
                             <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Sqaure</a>
                             <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Diamond</a>
@@ -72,7 +74,7 @@ const props = defineProps([
                         <span>Background Color</span>
                         <svg class="fill-current h-4 w-4 ml-2 transition duration-300 transform group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7l-5 5 5 5V7z"/></svg>
                         </button>
-                        <div class="absolute z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div :key="key" class="absolute overflow-y-scroll h-[25vmin] z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <option disabled="" data-v-30254f34="">Choose a Background Color</option>
                                 <option class="font-bold" value="#00FFFF" data-v-30254f34="" style="background-color: rgb(0, 255, 255);">Aqua</option>
                                 <option class="font-bold" value="#7FFFD4" data-v-30254f34="" style="background-color: rgb(127, 255, 212);">Aquamarine</option>
@@ -89,7 +91,9 @@ const props = defineProps([
                                 <option class="font-bold" value="#7FFF00" data-v-30254f34="" style="background-color: rgb(127, 255, 0);">Chartreuse</option>
                                 <option class="font-bold" value="#D2691E" data-v-30254f34="" style="background-color: rgb(210, 105, 30);">Chocolate</option>
                                 <option class="font-bold" value="#FF7F50" data-v-30254f34="" style="background-color: rgb(255, 127, 80);">Coral</option>
-                                <option class="font-bold" value="#6495ED" data-v-30254f34="" style="background-color: rgb(100, 149, 237);">Cornflower Blue</option>
+                                <option class="font-bold" value="#6495ED" d
+                                
+                                ata-v-30254f34="" style="background-color: rgb(100, 149, 237);">Cornflower Blue</option>
                                 <option class="font-bold" value="#FFF8DC" data-v-30254f34="" style="background-color: rgb(255, 248, 220);">Cornsilk</option>
                                 <option class="font-bold" value="#DC143C" data-v-30254f34="" style="background-color: rgb(220, 20, 60);">Crimson</option>
                                 <option class="font-bold" value="#00FFFF" data-v-30254f34="" style="background-color: rgb(0, 255, 255);">Cyan</option>
@@ -224,7 +228,7 @@ const props = defineProps([
                         <span>Font Style</span>
                         <svg class="fill-current h-4 w-4 ml-2 transition duration-300 transform group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 7l-5 5 5 5V7z"/></svg>
                         </button>
-                        <div class="absolute z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div class="absolute overflow-y-scroll h-[25vmin] z-10 hidden group-hover:block right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <option disabled="" data-v-30254f34="">Choose a Font Style</option>
                                 <option value="BrothersideSignature400" data-v-30254f34="" style="font-family: BrothersideSignature400;">Brotherside Signature</option>
                                 <option value="Createland400" data-v-30254f34="" style="font-family: Createland400;">Createland</option>
@@ -328,6 +332,7 @@ const props = defineProps([
                             <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Random</a>
                         </div>
                     </div>
+
                     </div>
                 </div>
                 <div class=" ml-[30vmin] grid">
@@ -336,22 +341,25 @@ const props = defineProps([
                         <div class="container mx-auto bg-gray-200 h-[50vmin] rounded-md ">
                             <div class="container bg-gray-350 shadow-lg h-[7vmin] inline-block">
                                 <p class=" ml-5 font-bold text-xl pt-4 inline-block" >Text Editor</p>
-                                <button type="button" class=" ml-[51vmin] -mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Upload Text File</button>
+                                <button type="button" class=" ml-[52vmin] -mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Upload Text File</button>
                             </div>
-                            <button type="button" class="mt-[38.3vmin] ml-[67.9vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Analayse</button>
+                            <div id="app" class="h-[36vh] w-[80vh] overflow-hidden border"> 
+                                <quill-editor ></quill-editor> 
+                            </div>
+                            <button type="button" class=" ml-[70vmin] mt-[2vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Analyse</button>
                         </div>
-                        <div class="mt-[2vmin] container mx-auto bg-gray-200 h-[48vmin] rounded-md">
+                        <div class="mt-[1vmin] container mx-auto bg-gray-200 h-[50vmin] rounded-md">
                             <div class="container bg-gray-350 shadow-lg h-[7vmin] rounded">
                                 <p class="ml-5 font-bold text-xl pt-4">Words Extracted</p>
-                                <button type="button" class="mt-[39vmin] ml-[63.3vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Download (img)</button>
+                                <button type="button" class="mt-[40vmin] ml-[64vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Download (img)</button>
                             </div>
                         </div>
                     </div>
-                    <div class="container mx-auto bg-gray-200 h-[100vmin] rounded-md">
+                    <div class="container mx-auto bg-gray-200 h-[101vmin] rounded-md">
                         <div class="container relative bg-blue-350 shadow-lg h-[7vmin] inline-block">
                             <p class=" ml-[2vmin] mt-6 font-bold text-2xl" >Analysis</p>
                             <img class="w-[20%] h-10 ml-[6.3vmin] -mt-11" src="https://www.svgrepo.com/show/345315/graph-chart-data-analytics-statistic-report-analysis.svg">
-                        <button type="button" class="flex mt-[90vmin] ml-[63.8vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Download CSV</button>
+                        <button type="button" class="flex mt-[90vmin] ml-[65vmin] text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-2.5 text-center ">Download CSV</button>
                         </div>
                         
                         <div class="relative ml-5 mr-5 -mt-[89vmin]">
@@ -365,7 +373,7 @@ const props = defineProps([
                                             WORDS
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            REAPETING COUNT
+                                            REPEATING COUNT
                                         </th>
                                     </tr>
                                 </thead>

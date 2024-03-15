@@ -168,7 +168,6 @@ const searchproj = () => {
                 </ol>
                 </nav>
             </div>
-
             <div class=" absolute fixed top-[10.9vmin] right-[13vh] w-[30vh] ">   
                      <div class="relative">
                           <div class="absolute inset-y-0  start-0 flex items-center ps-7 pointer-events-none">
@@ -176,7 +175,7 @@ const searchproj = () => {
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                          </svg>
                          </div>
-                     <input v-model="search" @keydown.enter="searchproj()" type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project" required />
+                     <input v-modelf="search" @keydown.enter="searchproj()" type="search" id="default-search" class="block w-full p-4  ps-[5vh] text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-300 text-left" placeholder="Search Project" required />
                      <button @click="searchproj()" type="submit"  class="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-900  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                      </div>
                  </div>
